@@ -1,0 +1,39 @@
+﻿@using Book_Sales_Project.Models;
+@model UserLoginViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="body-login">
+    <div class="container-login" id="container">
+
+         <div class="form-container sign-in-container">
+        <form method="post" class="form-login">
+        <h1 class="h1-login ">Giriş Yap</h1>
+        <br />
+        <input type="email" name="Email" placeholder="Email" class="input-login " />
+               
+                <input type="password" name="Password" placeholder="Şifreniz" class="input-login " />
+            
+        <br />
+        <button class="button-login">Giriş Yap</button>
+        </form>
+        </div> 
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                <h1 class="h1-login ">Merhaba!</h1>
+                <p class="p-login ">Hesabınız yoksa üye olunuz.</p>
+                    <button class="ghost button-login" onclick="parent.location='@Url.Action("Index","Register")'">Üye Ol</button>
+                </div> 
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    }

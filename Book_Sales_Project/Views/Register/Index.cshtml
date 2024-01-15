@@ -1,0 +1,41 @@
+﻿@using Book_Sales_Project.Models;
+@model UserRegisterViewModel
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="body-login">
+    <div class="container-login" id="container">
+        <div class="form-container sign-in-container">
+            <form method="post" class="form-login">
+                <h1 class="h1-login ">Üye Ol</h1>
+                <br />
+                <input type="text" asp-for="Name" placeholder="Adınız" class="input-login " />
+                <span asp-validation-for="Name" class="text-danger"></span>
+                <input type="text" asp-for="Surname" placeholder="Soyadınız" class="input-login " />
+                <span asp-validation-for="Surname" class="text-danger"></span>
+                <input type="email" asp-for="Email" placeholder="Email" class="input-login " />
+                <span asp-validation-for="Email" class="text-danger"></span>
+                <input type="password" asp-for="Password" placeholder="Şifre" class="input-login " />
+                <span asp-validation-for="Password" class="text-danger"></span>
+                <input type="password" asp-for="RepeatPassword" placeholder="Şifre" class="input-login " />
+                <span asp-validation-for="RepeatPassword" class="text-danger"></span>
+                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+                <br />
+                <button class="button-login">Üye Ol</button>
+            </form>
+        </div>
+
+        <div class="overlay-container">
+            <div class="overlay">
+                <div class="overlay-panel overlay-right">
+                    <h1 class="h1-login ">Merhaba!</h1>
+                    <p class="p-login ">Hesabınız varsa giriş yapınız.</p>
+                    <button class="ghost button-login" onclick="parent.location='@Url.Action("Index","Login")'">Giriş Yap</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

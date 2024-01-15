@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="tr">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link rel="icon" type="image/png" href="~/Template/images/icons/favicon.png" />
+
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/bootstrap/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/fonts/iconic/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/fonts/linearicons-v1.0.0/icon-font.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/animate/animate.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/css-hamburgers/hamburgers.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/animsition/css/animsition.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/select2/select2.min.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/daterangepicker/daterangepicker.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/slick/slick.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/MagnificPopup/magnific-popup.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/vendor/perfect-scrollbar/perfect-scrollbar.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/css/util.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/css/main.css">
+	<link rel="stylesheet" type="text/css" href="~/Template/css/login.css">
+</head>
+<body>	
+
+	@await Html.PartialAsync("Partial/NavbarPartial")
+	@RenderBody()
+	@RenderSection("Scripts", required: false)
+	@await Html.PartialAsync("Partial/FooterPartial")
+
+	<script src="~/Template/vendor/jquery/jquery-3.2.1.min.js"></script>
+	<script src="~/Template/vendor/animsition/js/animsition.min.js"></script>
+	<script src="~/Template/vendor/bootstrap/js/popper.js"></script>
+	<script src="~/Template/vendor/bootstrap/js/bootstrap.min.js"></script>
+	<script src="~/Template/vendor/select2/select2.min.js"></script>
+	<script src="~/Template/vendor/daterangepicker/moment.min.js"></script>
+	<script src="~/Template/vendor/daterangepicker/daterangepicker.js"></script>
+	<script src="~/Template/vendor/slick/slick.min.js"></script>
+	<script src="~/Template/js/slick-custom.js"></script>
+	<script src="~/Template/vendor/parallax100/parallax100.js"></script>
+	<script src="~/Template/vendor/MagnificPopup/jquery.magnific-popup.min.js"></script>
+	<script src="~/Template/vendor/isotope/isotope.pkgd.min.js"></script>
+	<script src="~/Template/vendor/sweetalert/sweetalert.min.js"></script>
+	<script src="~/Template/vendor/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+	<script src="~/Template/js/main.js"></script>
+	<script src="~/Template/js/login.js"></script>
+</body>
+</html>

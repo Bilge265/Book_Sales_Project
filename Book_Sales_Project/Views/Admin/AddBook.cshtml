@@ -1,0 +1,136 @@
+﻿@using EntityLayer.Concrete
+@using System.Web;
+@using System.Text;
+
+@model Book
+@{
+    ViewData["Title"] = "AddBook";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+    <body>
+<div class="card card-primary">
+    <div class="card-header">
+        <h3 class="card-title">Kitap Ekleme Sayfası</h3>
+
+        <div class="card-tools">
+            <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                <i class="fas fa-minus"></i>
+            </button>
+        </div>
+    </div>
+        @using (Html.BeginForm("AddBook", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "BookAddForm" }))
+    {
+        <div class="card-body">
+
+            <div class="form-group">
+                <label for="inputName">Kitap Adı</label>
+                @Html.TextBoxFor(x=>x.Name,new { @class = "form-control" })
+                @Html.ValidationMessageFor(x=>x.Name)
+            </div>
+
+            <div class="form-group">
+                <label for="inputClientCompany">Yazar</label>
+                @Html.TextBoxFor(x=>x.Author,new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="inputDescription">Kitap Açıklaması</label>
+                @Html.TextAreaFor(x=>x.Description,new { @class = "form-control",rows="4" })
+            </div>
+            <div class="form-group">
+                <label for="inputisNew">Kitabın Durumu</label>
+                @Html.DropDownListFor(x => x.isNew, (SelectList)ViewBag.isNewList, "Seçiniz", new { @class = "form-control" })
+            </div>
+
+            <div class="form-group">
+                <label for="inputPageCount">Sayfa Sayısı</label>
+                @Html.TextBoxFor(x=>x.PageCount,new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="inputPrice">Fiyat</label>
+                @Html.TextBoxFor(x=>x.Price,new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="inputStock">Stok Sayısı</label>
+                @Html.TextBoxFor(x=>x.Stock,new { @class = "form-control" })
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">Kitap Resmi</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="Image1" class="custom-file-input" multiple>
+                        <label class="custom-file-label" for="exampleInputFile">Resim seçiniz.</label>
+                        @Html.ValidationMessageFor(x=>x.ImageUrl1)
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">Kitap Resmi</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="Image2" class="custom-file-input" multiple>
+                        <label class="custom-file-label" for="exampleInputFile">Resim seçiniz.</label>
+                            @Html.ValidationMessageFor(x=>x.ImageUrl2)
+                    </div>
+
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="exampleInputFile">Kitap Resmi</label>
+                <div class="input-group">
+                    <div class="custom-file">
+                        <input type="file" name="Image3" class="custom-file-input" multiple>
+                        <label class="custom-file-label" for="exampleInputFile">Resim seçiniz.</label>
+                            @Html.ValidationMessageFor(x=>x.ImageUrl3)
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+        <!-- /.card-body -->
+        <div class="col-12">
+                <input type="submit" id="kitapEkleButton" value="Kitabı Ekle" class="btn btn-success">
+        </div>
+        <br />
+    }
+</div>
+
+@section Scripts{
+
+        <script src="~/adminlte-3.0.4/plugins/jquery/jquery.js"></script>
+        <script>
+            $(document).ready(function () {
+                var successMessage = @Html.Raw(Json.Serialize(TempData["SuccessMessage"]));
+                var errorMessage = @Html.Raw(Json.Serialize(TempData["ErrorMessage"]));
+                if (successMessage) {
+                    swal({
+                        title: "Başarılı!",
+                        text: successMessage,
+                        icon: "success",
+                        button: "Tamam",
+                    });
+                }
+                else if (errorMessage) {
+                    swal({
+                        title: "Hata!",
+                        text: errorMessage,
+                        icon: "error",
+                        button: "Tamam",
+                    });
+                }
+            });
+        </script>
+}
+</body>
+</html>
