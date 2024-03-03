@@ -1,6 +1,9 @@
 ﻿using Book_Sales_Project.Models;
-using EntityLayer.Concrete;
+using BusinessLayer.ValidationRules;
+using EntityLayer.Identity;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -27,35 +30,36 @@ namespace Book_Sales_Project.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> Index(UserLoginViewModel p)
-        {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(p.Email);
+        {			
 
-                if (user != null)
+			if (ModelState.IsValid)
                 {
-                    var result = await _signInManager.PasswordSignInAsync(user, p.Password, false, false);
+                    var user = await _userManager.FindByEmailAsync(p.Email);
 
-                    if (result.Succeeded)
+                    if (user != null)
                     {
-                        var userRoles = await _userManager.GetRolesAsync(user);
+                        var result = await _signInManager.PasswordSignInAsync(user, p.Password, false, false);
 
-                        if (userRoles.Contains("Admin"))
+                        if (result.Succeeded)
                         {
-                            return RedirectToAction("AddBook", "Admin");
-                        }
-                        else if (userRoles.Contains("User"))
-                        {
-                            return RedirectToAction("Index", "User");
-                        }
+                            var userRoles = await _userManager.GetRolesAsync(user);
 
+                            if (userRoles.Contains("Admin"))
+                            {
+                                return RedirectToAction("AddBook", "Admin");
+                            }
+                            else if (userRoles.Contains("User"))
+                            {
+                                return RedirectToAction("Index", "Home");
+                            }
 
+						
+					}
                     }
-                }
-
-                ModelState.AddModelError("", "Hatalı E-posta veya şifre");
+              
+                    ModelState.AddModelError("", "E-postanız veya şifreniz yanlış.");
+                
             }
-
             return View(p);
         }
 
@@ -63,10 +67,12 @@ namespace Book_Sales_Project.Controllers
         [HttpGet]
         public async Task<IActionResult> Logout()
         {
-
-            await HttpContext.SignOutAsync();
+          
+            await _signInManager.SignOutAsync();
 
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }

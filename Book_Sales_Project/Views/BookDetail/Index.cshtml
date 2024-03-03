@@ -56,6 +56,7 @@
 										
 									</div>
 								</div>
+								
 								@{
 									byte[] imageBytes2 = @Model.ImageUrl2;
 									string base64String2 = Convert.ToBase64String(imageBytes2);
@@ -66,16 +67,8 @@
 										<img src="@imgSrc2" alt="IMG-PRODUCT">		
 									</div>
 								</div>
-								@{
-									byte[] imageBytes3 = @Model.ImageUrl3;
-									string base64String3 = Convert.ToBase64String(imageBytes3);
-									string imgSrc3 = string.Format("data:image/jpeg;base64,{0}", base64String3);
-								}
-								<div class="item-slick3" data-thumb="@imgSrc3">
-									<div class="wrap-pic-w pos-relative">
-										<img src="@imgSrc3" alt="IMG-PRODUCT">
-									</div>
-								</div>
+							
+
 							</div>
 						</div>
 					</div>

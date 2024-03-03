@@ -1,0 +1,74 @@
+﻿@using EntityLayer.Identity
+@model AppUser
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>COZA STORE</title>
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+</head>
+<body class="animsition">
+
+	<div class="bg0 m-t-23 p-b-140">
+		<div class="container">
+			@await Html.PartialAsync("Partial/MenuListPartial")
+            <section class="content">
+                <div class="row">
+                    <div class="col-md-12">
+                        @using (Html.BeginForm("Index", "User", FormMethod.Post))
+                        {
+                            <div class="card card-secondary">
+                                <div class="card-header">
+                                    <h3 class="card-title">Kullanıcı Bilgilerim</h3>
+                                </div>
+                                <div class="card-body">
+                                    <div class="form-group">
+                                        <label for="inputName">Ad</label>
+                                        @Html.TextBoxFor(x=>x.Name,new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">Soyad</label>
+                                        @Html.TextBoxFor(x=>x.Surname,new { @class = "form-control" })
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName">E mail</label>
+                                           @Html.TextBoxFor(x=>x.Email,new { @class = "form-control" })
+                                    
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputClientCompany">Cep Telefonu</label>
+                                        @Html.TextBoxFor(x=>x.PhoneNumber,new { @class = "form-control" })
+                                    </div>
+
+                                    <input type="submit" value="Güncelle" class="button-login float-right">
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+                        }
+                        <!-- /.card -->
+                    </div>
+
+                </div>
+
+            </section>
+		</div>
+	</div>
+    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
+</body>
+</html>
+

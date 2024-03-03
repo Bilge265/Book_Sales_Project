@@ -1,8 +1,9 @@
 ﻿using Book_Sales_Project.Models;
-using EntityLayer.Concrete;
+using EntityLayer.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json.Linq;
 
 namespace Book_Sales_Project.Controllers
 {
@@ -36,15 +37,15 @@ namespace Book_Sales_Project.Controllers
                     Surname = p.Surname,
                     Email = p.Email,
                     UserName = p.Name + p.Surname,
-
-                };
+                   
+            };
 
                 var result = await _userManager.CreateAsync(appUser, p.Password);
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(appUser, "User");
 
-                    return RedirectToAction("Login", "User");
+                    return RedirectToAction("Index", "Login");
                 }
                 else
                 {

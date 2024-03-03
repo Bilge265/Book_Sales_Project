@@ -2652,16 +2652,16 @@ fieldset:disabled a.btn {
 
 .btn-success {
   color: #ffffff;
-  background-color: #28a745;
-  border-color: #28a745;
+  background-color: #FF4B2B;
+  border-color: #FF4B2B;
   box-shadow: none;
 }
 
-.btn-success:hover {
-  color: #ffffff;
-  background-color: #218838;
-  border-color: #1e7e34;
-}
+  .btn-success:hover {
+    color: #ffffff;
+    background-color: #FF4B2B;
+    border-color: #FF4B2B;
+  }
 
 .btn-success:focus, .btn-success.focus {
   color: #ffffff;

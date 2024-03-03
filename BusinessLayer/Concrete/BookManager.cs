@@ -4,6 +4,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,7 +19,12 @@ namespace BusinessLayer.Concrete
             _bookDal = bookDal;
         }
 
-        public void TAdd(Book t)
+		public List<Book> BookSearch(Expression<Func<Book, bool>> filter)
+		{
+		 return	_bookDal.BookSearch(filter);
+		}
+
+		public void TAdd(Book t)
         {
            _bookDal.Insert(t);
         }

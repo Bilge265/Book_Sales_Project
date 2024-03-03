@@ -5,9 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DataAccessLayer.Abstract
+namespace EntityLayer.Concrete
 {
-    public interface IUserDal:IGenericDal<AppUser>
+    public class BookSeller:AppUser
     {
+
     }
 }

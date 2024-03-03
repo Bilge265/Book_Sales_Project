@@ -5,6 +5,7 @@ using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -18,5 +19,11 @@ namespace DataAccessLayer.EntityFramework
         {
             _context = context;
         }
-    }
+
+
+		public List<Book> BookSearch(Expression<Func<Book, bool>> filter)
+		{
+			return _context.Set<Book>().Where(filter).ToList();
+		}
+	}
 }

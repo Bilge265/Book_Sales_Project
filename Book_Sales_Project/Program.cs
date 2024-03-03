@@ -5,7 +5,7 @@ using DataAccessLayer.Context;
 using DataAccessLayer.Data;
 using DataAccessLayer.EntityFramework;
 using DataAccessLayer.Repository;
-using EntityLayer.Concrete;
+using EntityLayer.Identity;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -46,9 +46,9 @@ builder.Services.AddMvc(config =>
 builder.Services.ConfigureApplicationCookie(options =>
 {
     options.Cookie.HttpOnly = true;
-    options.ExpireTimeSpan = TimeSpan.FromMinutes(10);
+    options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
 
-    options.LoginPath = "/User/Login/Index/";
+    options.LoginPath = "/Login/Index/";
 });
 
 var app = builder.Build();
@@ -79,13 +79,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-
-app.UseEndpoints(endpoints =>
-{
-    endpoints.MapControllerRoute(
-      name: "areas",
-      pattern: "{area:exists}/{controller=User}/{action=Index}/{id?}"
-    );
-});
 
 app.Run();

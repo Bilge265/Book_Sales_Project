@@ -13,15 +13,15 @@ namespace BusinessLayer.ValidationRules
         public BookValidator()
         {
             RuleFor(x => x.Name).NotEmpty().WithMessage("Kitap adı boş olamaz.");
-            RuleFor(x => x.ImageUrl1).NotEmpty().WithMessage("Resim boş olamaz.");
-            RuleFor(x => x.ImageUrl2).NotEmpty().WithMessage("Resim boş olamaz.");
-            RuleFor(x => x.ImageUrl3).NotEmpty().WithMessage("Resim boş olamaz.");
-            RuleFor(x=>x.ImageUrl1).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
-            RuleFor(x => x.ImageUrl1).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
-            RuleFor(x => x.ImageUrl2).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
-            RuleFor(x => x.ImageUrl2).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
-            RuleFor(x => x.ImageUrl3).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
-            RuleFor(x => x.ImageUrl3).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
+            //RuleFor(x => x.ImageUrl1).NotEmpty().WithMessage("Resim boş olamaz.");
+            //RuleFor(x => x.ImageUrl2).NotEmpty().WithMessage("Resim boş olamaz.");
+            //RuleFor(x => x.ImageUrl3).NotEmpty().WithMessage("Resim boş olamaz.");
+            //RuleFor(x=>x.ImageUrl1).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
+            //RuleFor(x => x.ImageUrl1).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
+            //RuleFor(x => x.ImageUrl2).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
+            //RuleFor(x => x.ImageUrl2).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
+            //RuleFor(x => x.ImageUrl3).Must(BeValidImageExtension).WithMessage("Proje resmi sadece .jpg ve .png uzantılı olabilir");
+            //RuleFor(x => x.ImageUrl3).Must(BeValidImageSize).WithMessage("Proje resmi 10 MB'dan büyük olamaz");
 
         }
         private bool BeValidImageSize(byte[] imageData)

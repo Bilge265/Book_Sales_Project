@@ -42,7 +42,7 @@
                             <th style="width: 30%">
                                 Yazar
                             </th>                      
-                            <th style="width: 8%" class="text-center">
+                            <th style="width: 8%">
                                 Status
                             </th>
                             <th style="width: 20%">
@@ -51,7 +51,9 @@
                     </thead>
                     <tbody>
                           @{int counter=1;}
-                          @foreach (var item in Model){                                       
+                          @foreach (var item in Model){
+                            if (item.BookSellers.Id == 1)
+                            {
                         <tr>
                             <td>
                                 @counter
@@ -95,7 +97,7 @@
                             </td>
                         </tr>
                             counter++;
-                        }
+                        } }
                     </tbody> 
                 </table> 
               

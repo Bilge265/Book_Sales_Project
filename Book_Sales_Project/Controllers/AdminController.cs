@@ -1,6 +1,8 @@
-﻿using BusinessLayer.Abstract;
+﻿using Book_Sales_Project.Models;
+using BusinessLayer.Abstract;
 using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
+using EntityLayer.Identity;
 using FluentValidation.Results;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -15,22 +17,16 @@ namespace Book_Sales_Project.Controllers
     {
         private readonly IBookService _bookService;
         private readonly UserManager<AppUser> _userManager;
+        private readonly IUserService _userService;
 
-        public AdminController(IBookService bookService, UserManager<AppUser> userManager)
+        public AdminController(IBookService bookService, UserManager<AppUser> userManager, IUserService userService)
         {
             _bookService = bookService;
             _userManager = userManager;
+            _userService = userService;
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public IActionResult AdminPassword()
-        {
-            return ViewComponent("AdminPasswordView");
-        }
+       
 
         [HttpGet]
         public IActionResult AddBook()
@@ -47,6 +43,7 @@ namespace Book_Sales_Project.Controllers
         [HttpPost]
         public IActionResult AddBook(Book values, List<IFormFile> Image1, List<IFormFile> Image2, List<IFormFile> Image3)
         {
+            var userId = _userManager.GetUserId(HttpContext.User);
             var isNewList = new List<SelectListItem>
         {
             new SelectListItem { Value = "true", Text = "Yeni Kitap" },
@@ -58,22 +55,21 @@ namespace Book_Sales_Project.Controllers
             List<byte[]> fileDataList = GetFileDataList(imageLists);
             values.ImageUrl1 = fileDataList.ElementAtOrDefault(0);
             values.ImageUrl2 = fileDataList.ElementAtOrDefault(1);
-            values.ImageUrl3 = fileDataList.ElementAtOrDefault(2);
 
             BookValidator validator = new BookValidator();
             ValidationResult validationResult = validator.Validate(values);
             if (validationResult.IsValid)
-            {  
-                values.UserId = 1;
+            {
+                values.Status = true;
+                //values.UserId = int.Parse(userId);
                 values.CreationTime = DateTime.Now;
                 _bookService.TAdd(values);
-                TempData["SuccessMessage"] = "Kitap başarıyla eklendi!";
-                return RedirectToAction("AddBook", "Admin");
+		
+				return RedirectToAction("AddBook", "Admin");
 
             }
             else
             {
-                TempData["ErrorMessage"] = "Kitap eklenemedi!";
 
                 foreach (var item in validationResult.Errors)
                 {
@@ -126,7 +122,7 @@ namespace Book_Sales_Project.Controllers
             List<byte[]> fileDataList = GetFileDataList(imageLists);
             values.ImageUrl1 = fileDataList.ElementAtOrDefault(0);
             values.ImageUrl2 = fileDataList.ElementAtOrDefault(1);
-            values.ImageUrl3 = fileDataList.ElementAtOrDefault(2);
+      
 
             values.Author=updateBook.Author;
             values.Name = updateBook.Name;
@@ -139,7 +135,7 @@ namespace Book_Sales_Project.Controllers
             ValidationResult validationResult = validator.Validate(values);
             if (validationResult.IsValid)
             {
-                values.UserId = 1;
+                values.ID = 1;
                 values.UpdateTime = DateTime.Now;
                 _bookService.TUpdate(values);          
                 return RedirectToAction("BookList", "Admin");
@@ -182,6 +178,62 @@ namespace Book_Sales_Project.Controllers
             return fileDataList;
         }
 
+		[HttpGet]
+		public IActionResult AdminPassword()
+		{
+			return View();
+		}
+
+		[HttpPost]
+		public async Task<IActionResult> AdminPassword(PasswordViewModel model)
+		{
+			if (ModelState.IsValid)
+			{
+
+				var user = await _userManager.GetUserAsync(HttpContext.User);
+
+				var result = await _userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+				if (result.Succeeded)
+				{
+
+					TempData["SuccessMessage"] = "Şifreniz başarıyla değiştirildi.";
+					return RedirectToAction("AdminPassword", "Admin");
+				}
+				else
+				{
+
+					foreach (var error in result.Errors)
+					{
+						ModelState.AddModelError(string.Empty, error.Description);
+					}
+					return View(model);
+				}
+			}
+			else
+			{
+				return View(model);
+			}
+		}
+        [HttpGet]
+        public IActionResult UserList()
+        {
+            var values = _userService.TGetList();
+            return View(values);
+        }
+
+        [HttpGet]
+        public IActionResult SalesRequest()
+        {
+            var values = _bookService.TGetList();
+            return View(values);
+        }
+        public IActionResult StatusBook(int id)
+        {
+            var values = _bookService.TGetByID(id);
+            values.Status = !values.Status;
+            _bookService.TUpdate(values);
+            return RedirectToAction("SalesRequest", "Admin");
+        }
     }
 }
 

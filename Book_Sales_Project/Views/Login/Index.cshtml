@@ -13,10 +13,11 @@
         <h1 class="h1-login ">Giriş Yap</h1>
         <br />
         <input type="email" name="Email" placeholder="Email" class="input-login " />
-               
-                <input type="password" name="Password" placeholder="Şifreniz" class="input-login " />
-            
-        <br />
+        <span asp-validation-for="Email" class="text-danger"></span>
+        <input type="password" name="Password" placeholder="Şifreniz" class="input-login " />
+        <span asp-validation-for="Password" class="text-danger"></span>
+          <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+          <br />
         <button class="button-login">Giriş Yap</button>
         </form>
         </div> 
