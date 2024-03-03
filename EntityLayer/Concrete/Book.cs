@@ -29,5 +29,7 @@ namespace EntityLayer.Concrete
         public byte[]? ImageUrl1 { get; set; }
         public byte[]? ImageUrl2 { get; set; }
 
+        //
+
     }
 }
