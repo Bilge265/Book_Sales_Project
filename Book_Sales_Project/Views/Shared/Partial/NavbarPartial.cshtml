@@ -43,16 +43,20 @@
 
 						<a href="@Url.Action("Index","User")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 ">
 						<i class="zmdi zmdi-account-o"></i> <span class="icon-span">Hesabım</span>
-					</a>
+					    </a>
+						<a href="@Url.Action("Index","Basket")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+							<i class="zmdi zmdi-shopping-cart"></i> <span class="icon-span">Sepetim</span>
+						</a>
                      }
                     else{
 					<a href="@Url.Action("Index","Login")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 ">
 						<i class="zmdi zmdi-account-o"></i> <span class="icon-span">Giriş Yap</span>
 					</a>
+						<a href="@Url.Action("Index","Login")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11">
+							<i class="zmdi zmdi-shopping-cart"></i> <span class="icon-span">Sepetim</span>
+						</a>
 					}
-					<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 " >
-						<i class="zmdi zmdi-shopping-cart"></i> <span class="icon-span">Sepetim</span>
-					</a>
+					
 				
 				</div>
 			</nav>
@@ -107,6 +111,11 @@
 					<i class="zmdi zmdi-account-o"></i><span class="icon-span">Hesabım</span>
 				</a>
 			</li>
+				<li>
+					<a href="@Url.Action("Index","Basket")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti">
+						<i class="zmdi zmdi-shopping-cart"></i><span class="icon-span">Sepetim</span>
+					</a>
+				</li>
 			}
             else{
 
@@ -115,16 +124,16 @@
 					<i class="zmdi zmdi-account-o"></i><span class="icon-span">Giriş Yap</span>
 				</a>
 			</li>
+				<li>
+					<a href="@Url.Action("Index","Login")" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti">
+						<i class="zmdi zmdi-shopping-cart"></i><span class="icon-span">Sepetim</span>
+					</a>
+				</li>
 			}
-			<li>
-				<a href="#" class="icon-header-item cl2 hov-cl1 trans-04 p-l-22 p-r-11 icon-header-noti" data-notify="2">
-					<i class="zmdi zmdi-shopping-cart"></i><span class="icon-span">Sepetim</span>
-				</a>
-			</li>
+			
 		
 			
 		</ul>
 	</div>
 </header>
-
 

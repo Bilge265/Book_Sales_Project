@@ -45,7 +45,7 @@ namespace Book_Sales_Project.Controllers
             if (validationResult.IsValid)
             {                
                 values.Status = false;
-                values.BookSellers.Id = int.Parse(userId);
+                values.UserId = int.Parse(userId);
                 values.isNew = false;
                 values.CreationTime = DateTime.Now;
                 _bookService.TAdd(values);

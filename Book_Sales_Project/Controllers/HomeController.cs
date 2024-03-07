@@ -21,7 +21,7 @@ namespace Book_Sales_Project.Controllers
         {
             if (!string.IsNullOrEmpty(p))
             {
-       return View(_bookService.BookSearch(x => x.Name.Contains(p)));
+             return View(_bookService.BookSearch(x => x.Name.Contains(p)));
             }
 
             var bookList = _bookService.TGetList();

@@ -35,6 +35,21 @@ builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IBookDal, EfBookDal>();
 builder.Services.AddScoped<IBookService, BookManager>();
 
+builder.Services.AddScoped<IAddressDal, EfAddressDal>();
+builder.Services.AddScoped<IAddressService, AddressManager>();
+
+builder.Services.AddScoped<IBasketDal, EfBasketDal>();
+builder.Services.AddScoped<IBasketService, BasketManager>();
+
+builder.Services.AddScoped<IBasketItemDal, EfBasketItemDal>();
+builder.Services.AddScoped<IBasketItemService, BasketItemManager>();
+
+builder.Services.AddScoped<IOrderDal, EfOrderDal>();
+builder.Services.AddScoped<IOrderService, OrderManager>();
+
+builder.Services.AddScoped<IOrderItemDal, EfOrderItemDal>();
+builder.Services.AddScoped<IOrderItemService, OrderItemManager>();
+
 builder.Services.AddMvc(config =>
 {
     var policy = new AuthorizationPolicyBuilder()

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace DataAccessLayer.Migrations
 {
     /// <inheritdoc />
-    public partial class CreateDatabase : Migration
+    public partial class createDb : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -38,7 +38,6 @@ namespace DataAccessLayer.Migrations
                     Image = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     CreationTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     UpdateTime = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Discriminator = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -194,7 +193,6 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -226,7 +224,7 @@ namespace DataAccessLayer.Migrations
                     Stock = table.Column<int>(type: "int", nullable: false),
                     PageCount = table.Column<int>(type: "int", nullable: false),
                     isNew = table.Column<bool>(type: "bit", nullable: true),
-                    BookSellersId = table.Column<int>(type: "int", nullable: false),
+                    UserId = table.Column<int>(type: "int", nullable: false),
                     ImageUrl1 = table.Column<byte[]>(type: "varbinary(max)", nullable: true),
                     ImageUrl2 = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
@@ -234,8 +232,8 @@ namespace DataAccessLayer.Migrations
                 {
                     table.PrimaryKey("PK_Books", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Books_AspNetUsers_BookSellersId",
-                        column: x => x.BookSellersId,
+                        name: "FK_Books_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -248,6 +246,7 @@ namespace DataAccessLayer.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     OrderDate = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
                     TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -268,7 +267,9 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    BooksID = table.Column<int>(type: "int", nullable: false),
+                    BookId = table.Column<int>(type: "int", nullable: false),
+                    Quantity = table.Column<int>(type: "int", nullable: false),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BasketId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
@@ -280,8 +281,8 @@ namespace DataAccessLayer.Migrations
                         principalTable: "Baskets",
                         principalColumn: "Id");
                     table.ForeignKey(
-                        name: "FK_BasketItems_Books_BooksID",
-                        column: x => x.BooksID,
+                        name: "FK_BasketItems_Books_BookId",
+                        column: x => x.BookId,
                         principalTable: "Books",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -362,9 +363,9 @@ namespace DataAccessLayer.Migrations
                 column: "BasketId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_BasketItems_BooksID",
+                name: "IX_BasketItems_BookId",
                 table: "BasketItems",
-                column: "BooksID");
+                column: "BookId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Baskets_CustomerId",
@@ -372,9 +373,9 @@ namespace DataAccessLayer.Migrations
                 column: "CustomerId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Books_BookSellersId",
+                name: "IX_Books_UserId",
                 table: "Books",
-                column: "BookSellersId");
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_BooksID",

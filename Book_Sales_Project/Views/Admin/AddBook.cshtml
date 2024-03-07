@@ -37,6 +37,12 @@
                 </div>
 
                 <div class="form-group">
+                    <label for="inputName">Yayınevi</label>
+                    @Html.TextBoxFor(x=>x.Publisher,new { @class = "form-control" })
+                    <span asp-validation-for="Publisher" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
                     <label for="inputDescription">Kitap Açıklaması</label>
                     @Html.TextAreaFor(x=>x.Description,new { @class = "form-control",rows="4" })
                 </div>
@@ -89,7 +95,7 @@
         }
     </div>
 @section Scripts{
-    @*     <script src="~/adminlte-3.0.4/plugins/jquery/jquery.js"></script>
+      @*   <script src="~/adminlte-3.0.4/plugins/jquery/jquery.js"></script>
         <script>
             $(document).ready(function () {
                 var successMessage = @Html.Raw(Json.Serialize(TempData["SuccessMessage"]));
@@ -113,26 +119,7 @@
             });
         </script> *@
        
-        <script>
-            $(document).ready(function () {
-                $('.add-button').click(function (e) {
-                    e.preventDefault();
-                    var addUrl = $(this).attr('href');
-
-                    Swal.fire({
-                        title: 'Kitap Eklendi!',
-                        text: 'Yeni kitap başarıyla eklenmiştir.',
-                        icon: 'success',
-                        confirmButtonColor: '#3085d6',
-                        confirmButtonText: 'Tamam'
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            window.location.href = "/Admin/AddBook";
-                        }
-                    });
-                });
-            });
-        </script>
+     
 
 
 }

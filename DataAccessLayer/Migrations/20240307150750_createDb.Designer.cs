@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240303212210_CreateDatabase")]
-    partial class CreateDatabase
+    [Migration("20240307150750_createDb")]
+    partial class createDb
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,9 +70,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -91,14 +88,20 @@ namespace DataAccessLayer.Migrations
                     b.Property<int?>("BasketId")
                         .HasColumnType("int");
 
-                    b.Property<int>("BooksID")
+                    b.Property<int>("BookId")
                         .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("BasketId");
 
-                    b.HasIndex("BooksID");
+                    b.HasIndex("BookId");
 
                     b.ToTable("BasketItems");
                 });
@@ -114,9 +117,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<string>("Author")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("BookSellersId")
-                        .HasColumnType("int");
 
                     b.Property<DateTime?>("CreationTime")
                         .HasColumnType("datetime2");
@@ -157,12 +157,15 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime?>("UpdateTime")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
                     b.Property<bool?>("isNew")
                         .HasColumnType("bit");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("BookSellersId");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Books");
                 });
@@ -180,6 +183,9 @@ namespace DataAccessLayer.Migrations
 
                     b.Property<DateTime>("OrderDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("TotalPrice")
                         .HasColumnType("decimal(18,2)");
@@ -262,10 +268,6 @@ namespace DataAccessLayer.Migrations
                     b.Property<DateTime?>("CreationTime")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Discriminator")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Email")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -334,10 +336,6 @@ namespace DataAccessLayer.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("AppUser");
-
-                    b.UseTphMappingStrategy();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -443,13 +441,6 @@ namespace DataAccessLayer.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("EntityLayer.Concrete.BookSeller", b =>
-                {
-                    b.HasBaseType("EntityLayer.Identity.AppUser");
-
-                    b.HasDiscriminator().HasValue("BookSeller");
-                });
-
             modelBuilder.Entity("EntityLayer.Concrete.Address", b =>
                 {
                     b.HasOne("EntityLayer.Identity.AppUser", "User")
@@ -480,7 +471,7 @@ namespace DataAccessLayer.Migrations
 
                     b.HasOne("EntityLayer.Concrete.Book", "Books")
                         .WithMany()
-                        .HasForeignKey("BooksID")
+                        .HasForeignKey("BookId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -489,13 +480,13 @@ namespace DataAccessLayer.Migrations
 
             modelBuilder.Entity("EntityLayer.Concrete.Book", b =>
                 {
-                    b.HasOne("EntityLayer.Concrete.BookSeller", "BookSellers")
-                        .WithMany()
-                        .HasForeignKey("BookSellersId")
+                    b.HasOne("EntityLayer.Identity.AppUser", "User")
+                        .WithMany("Books")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("BookSellers");
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("EntityLayer.Concrete.Order", b =>
@@ -590,6 +581,8 @@ namespace DataAccessLayer.Migrations
                     b.Navigation("Addresses");
 
                     b.Navigation("Baskets");
+
+                    b.Navigation("Books");
 
                     b.Navigation("Orders");
                 });

@@ -68,6 +68,7 @@
 									</div>
 								</div>
 							
+								
 
 							</div>
 						</div>
@@ -75,6 +76,8 @@
 				</div>
 
 				<div class="col-md-6 col-lg-5 p-b-30">
+					<form method="post" action="@Url.Action("AddToBasket", "BookDetail")">
+						<input type="hidden" name="BookId" value="@Model.ID" />
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">
 							@Model.Name
@@ -89,18 +92,24 @@
 							</span>
 						</div>
 							<br />
+						<div>
+							<span class="stext-106 cl4">
+								Yayınevi :
+							</span>
+							<span class="stext-102 cl3 p-t-23">
+								@Model.Publisher
+							</span>
+						</div>
+						<br />
 						<span class="stext-105 cl3">
 							@Model.Price TL
 						</span>
 
-					
-						
-						
-
+			
 
 						<!--  -->
 						<div class="p-t-33">
-
+							
 							<div class="flex-w flex-r-m p-b-10">
 								<div class="size-204 flex-w flex-m respon6-next">
 									<div class="wrap-num-product flex-w m-r-20 m-tb-10">
@@ -108,23 +117,25 @@
 											<i class="fs-16 zmdi zmdi-minus"></i>
 										</div>
 
-										<input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
+											<input class="mtext-104 cl3 txt-center num-product" type="number" value="1" id="quantity" name="Quantity" required>
 
 										<div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
 											<i class="fs-16 zmdi zmdi-plus"></i>
 										</div>
 									</div>
 
-									<button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
+										<button type="submit" onclick="addToCart()" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
 										Sepete Ekle
 									</button>
 								</div>
 							</div>
+							
 						</div>
 
 						<!--  -->
 					
 					</div>
+					</form>
 				</div>
 			</div>
 
@@ -181,7 +192,15 @@
 												@Model.Author
 											</span>
 										</li>								
+										<li class="flex-w flex-t p-b-7">
+											<span class="stext-102 cl3 size-205">
+												Yayınevi
+											</span>
 
+											<span class="stext-102 cl6 size-206">
+												@Model.Publisher
+											</span>
+										</li>
 										<li class="flex-w flex-t p-b-7">
 											<span class="stext-102 cl3 size-205">
 												Sayfa Sayısı
@@ -366,6 +385,7 @@
 				})
 			});
 		</script>
+
 	}
 	
 	

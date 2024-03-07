@@ -13,7 +13,6 @@ namespace EntityLayer.Concrete
 	{
 		[Key]
 		public int Id { get; set; }
-		public int Quantity { get; set; }
 
         //[ForeignKey("Book")]
         //public int BookId { get; set; }

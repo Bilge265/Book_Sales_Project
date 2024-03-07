@@ -14,6 +14,7 @@ namespace EntityLayer.Concrete
 		[Key]
 		public int Id { get; set; }
 		public DateTime OrderDate { get; set; }
+		public int Quantity { get; set; }
 		public decimal TotalPrice { get; set; }
 	
 		public virtual ICollection<OrderItem> OrderItems { get; set; }

@@ -11,7 +11,7 @@ namespace EntityLayer.Identity
         public byte[]? Image { get; set; }
         public DateTime? CreationTime { get; set; }
         public DateTime? UpdateTime { get; set; }
-        //public List<Book> Books { get; set; }
+        public List<Book> Books { get; set; }
         public virtual ICollection<Address> Addresses { get; set; }
         public virtual ICollection<Basket> Baskets { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

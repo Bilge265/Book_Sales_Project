@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using EntityLayer.Identity;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityLayer.Concrete
@@ -20,16 +21,16 @@ namespace EntityLayer.Concrete
         public int PageCount { get; set; }
         public bool? isNew { get; set; }
 
-        //[ForeignKey("User")]
-        //public int UserId { get; set; }
-        //public virtual AppUser User { get; set; }
-        //public virtual ICollection<BookSale> BookSales { get; set; }
-        //public virtual ICollection<BookImage> BookImages { get; set; }
-        public virtual BookSeller BookSellers { get; set; }
-        public byte[]? ImageUrl1 { get; set; }
+        [ForeignKey("User")]
+        public int UserId { get; set; }
+        public virtual AppUser User { get; set; }
+		//public virtual ICollection<BookSale> BookSales { get; set; }
+		//public virtual ICollection<BookImage> BookImages { get; set; }
+	
+		public byte[]? ImageUrl1 { get; set; }
         public byte[]? ImageUrl2 { get; set; }
 
-        //
+ 
 
     }
 }
