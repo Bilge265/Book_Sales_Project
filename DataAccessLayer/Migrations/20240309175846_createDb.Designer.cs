@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DataAccessLayer.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20240307150750_createDb")]
+    [Migration("20240309175846_createDb")]
     partial class createDb
     {
         /// <inheritdoc />
@@ -70,6 +70,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -91,11 +94,11 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("ProductTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

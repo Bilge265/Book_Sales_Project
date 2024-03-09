@@ -16,6 +16,6 @@ namespace EntityLayer.Concrete
 		public int BookId { get; set; }
 		public virtual Book Books { get; set; }
 		public int Quantity { get; set; }
-		public decimal TotalPrice { get; set; }
+		public decimal ProductTotalPrice { get; set; }
 	}
 }

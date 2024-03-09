@@ -1,10 +1,7 @@
-﻿using BusinessLayer.Abstract;
-using DataAccessLayer.Context;
-using EntityLayer.Concrete;
+﻿using Book_Sales_Project.Models.BasketViewModels;
+using BusinessLayer.Abstract;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using Newtonsoft.Json.Linq;
 
 namespace Book_Sales_Project.Controllers
 {
@@ -12,19 +9,24 @@ namespace Book_Sales_Project.Controllers
 	public class BasketController : Controller
 	{
 		private readonly IBasketItemService _basketItemService;
-	
-		public BasketController(IBasketItemService basketItemService)
+		private readonly IBasketService _basketService;
+		public BasketController(IBasketItemService basketItemService, IBasketService basketService)
 		{
 			_basketItemService = basketItemService;
+			_basketService = basketService;
 		}
 
 		public IActionResult Index()
 		{
-
-			var basketItems = _basketItemService.GetAllBasketItems();
-			return View(basketItems);
-
-
+			var basketItems = _basketItemService.TGetAllBasketItems();
+			var baskets = _basketService.TGetByID(1);
+			BasketViewModel model = new BasketViewModel
+			{
+				BasketItems = basketItems,
+				Baskets = baskets
+			};
+			return View(model);
 		}
+
 	}
 }

@@ -20,9 +20,7 @@ namespace DataAccessLayer.EntityFramework
         {
 			_context = context;
 		}
-		public IEnumerable<BasketItem> GetAllBasketItems()
-		{
-			return _context.BasketItems.Include(b => b.Books).ToList();
-		}
+		
+
 	}
 }

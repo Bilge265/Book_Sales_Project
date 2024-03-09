@@ -193,6 +193,7 @@ namespace DataAccessLayer.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     CustomerId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -269,7 +270,7 @@ namespace DataAccessLayer.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     BookId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false),
-                    TotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    ProductTotalPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     BasketId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>

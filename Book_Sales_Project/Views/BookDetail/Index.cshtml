@@ -76,7 +76,7 @@
 				</div>
 
 				<div class="col-md-6 col-lg-5 p-b-30">
-					<form method="post" action="@Url.Action("AddToBasket", "BookDetail")">
+					<form method="post" asp-controller="BookDetail" asp-action="AddToBasket">
 						<input type="hidden" name="BookId" value="@Model.ID" />
 					<div class="p-r-50 p-t-5 p-lr-0-lg">
 						<h4 class="mtext-105 cl2 js-name-detail p-b-14">

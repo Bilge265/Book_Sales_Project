@@ -1,15 +1,10 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
 using EntityLayer.Concrete;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-    public class BasketManager : IBasketService
+	public class BasketManager : IBasketService
     {
         IBasketDal _basketDal;
 
@@ -18,10 +13,7 @@ namespace BusinessLayer.Concrete
             _basketDal = basketDal;
         }
 
-		public IEnumerable<Basket> GetAllBasketItems()
-		{
-		return _basketDal.GetAllBasketItems();
-		}
+	
 
 		public void TAdd(Basket t)
         {
@@ -33,7 +25,9 @@ namespace BusinessLayer.Concrete
             _basketDal.Delete(t);
         }
 
-        public Basket TGetByID(int id)
+		
+
+		public Basket TGetByID(int id)
         {
             return _basketDal.GetById(id);
         }
@@ -43,9 +37,19 @@ namespace BusinessLayer.Concrete
            return _basketDal.GetList();
         }
 
-        public void TUpdate(Basket t)
+		public void TUpdate(Basket t)
         {
             _basketDal.Update(t);
         }
-    }
+
+		public Basket TGetUserBasket(int userId)
+		{
+			return _basketDal.GetUserBasket(userId);
+		}
+
+		public IEnumerable<BasketItem> TGetAllBasketItemsByBasketId(int id)
+		{
+			return _basketDal.GetAllBasketItemsByBasketId(id);
+		}
+	}
 }

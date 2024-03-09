@@ -67,6 +67,9 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("TotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.HasKey("Id");
 
                     b.HasIndex("CustomerId");
@@ -88,11 +91,11 @@ namespace DataAccessLayer.Migrations
                     b.Property<int>("BookId")
                         .HasColumnType("int");
 
+                    b.Property<decimal>("ProductTotalPrice")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 

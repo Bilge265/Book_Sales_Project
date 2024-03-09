@@ -10,6 +10,5 @@ namespace BusinessLayer.Abstract
 {
     public interface IBasketItemService : IGenericService<BasketItem>
     {
-		public IEnumerable<BasketItem> GetAllBasketItems();
 	}
 }

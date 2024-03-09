@@ -18,11 +18,6 @@ namespace BusinessLayer.Concrete
             _basketItemDal = basketItemDal;
         }
 
-		public IEnumerable<BasketItem> GetAllBasketItems()
-		{
-			return _basketItemDal.GetAllBasketItems();
-			
-		}
 
 		public void TAdd(BasketItem t)
         {

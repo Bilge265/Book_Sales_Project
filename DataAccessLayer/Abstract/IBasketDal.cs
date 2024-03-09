@@ -8,9 +8,10 @@ using System.Threading.Tasks;
 
 namespace DataAccessLayer.Abstract
 {
-    public interface IBasketDal : IGenericDal<Basket>
-    {
-		public IEnumerable<Basket> GetAllBasketItems();
+	public interface IBasketDal : IGenericDal<Basket>
+	{
 
+		public Basket GetUserBasket(int userId);
+		public IEnumerable<BasketItem> GetAllBasketItemsByBasketId(int id);
 	}
 }
