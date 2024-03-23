@@ -35,11 +35,9 @@ namespace Book_Sales_Project.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddToBasket(BasketItem basketItem)
 		{
-			var user = await _userManager.GetUserAsync(HttpContext.User);
-			var userBasket = _basketService.TGetUserBasket(user.Id);
-			 BasketItemValidator validator = new BasketItemValidator();
-             ValidationResult validationResult = validator.Validate(basketItem);
-			if (validationResult.IsValid)
+			var basketItems = _basketItemService.TGetAllBasketItems();
+			var baskets = _basketService.TGetByID(1);
+			BasketViewModel model = new BasketViewModel
 			{
 			
 			   _basketItemService.TAdd(basketItem);
