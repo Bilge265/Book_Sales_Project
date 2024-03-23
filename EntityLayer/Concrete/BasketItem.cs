@@ -1,10 +1,4 @@
-﻿using EntityLayer.Identity;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityLayer.Concrete
 {
@@ -15,7 +9,7 @@ namespace EntityLayer.Concrete
 		public decimal ProductTotalPrice { get; set; }
 
 		[ForeignKey("Basket")]
-		public int BasketId { get; set; }
+        public int BasketId { get; set; }
 		public virtual Basket Baskets { get; set; }
 
 		[ForeignKey("Book")]

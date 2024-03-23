@@ -15,6 +15,16 @@ namespace DataAccessLayer.Context
 		public DbSet<Address> Address { get; set; }
 		public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
-    
-	}
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<BasketItem>()
+                .HasOne(bi => bi.Books)
+                .WithMany()
+                .HasForeignKey(bi => bi.BookId)
+                .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE NO ACTION
+        }
+    }
 }

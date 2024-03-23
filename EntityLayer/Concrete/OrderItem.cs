@@ -1,14 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace EntityLayer.Concrete
 {
     public class OrderItem
     {
         public int Id { get; set; }
+
+        [ForeignKey("Book")]
+        public int BookId { get; set; }
         public virtual Book Books { get; set; }
     }
 }
