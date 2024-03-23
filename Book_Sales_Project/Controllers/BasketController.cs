@@ -35,14 +35,8 @@ namespace Book_Sales_Project.Controllers
 		[HttpPost]
 		public async Task<IActionResult> AddToBasket(BasketItem basketItem)
 		{
-			var basketItems = _basketItemService.TGetAllBasketItems();
+			var basketItems = _basketItemService.TGetList();
 			var baskets = _basketService.TGetByID(1);
-			BasketViewModel model = new BasketViewModel
-			{
-			
-			   _basketItemService.TAdd(basketItem);
-				RedirectToAction("Index", "Basket");
-			}
 			return View();
 		}
 
