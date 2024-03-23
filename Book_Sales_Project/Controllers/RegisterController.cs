@@ -1,4 +1,6 @@
 ﻿using Book_Sales_Project.Models;
+using BusinessLayer.Abstract;
+using EntityLayer.Concrete;
 using EntityLayer.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -12,10 +14,12 @@ namespace Book_Sales_Project.Controllers
     public class RegisterController : Controller
     {
         private readonly UserManager<AppUser> _userManager;
+        private readonly IBasketService _basketService;
 
-        public RegisterController(UserManager<AppUser> userManager)
+        public RegisterController(UserManager<AppUser> userManager, IBasketService basketService)
         {
             _userManager = userManager;
+            _basketService = basketService;
         }
 
         [HttpGet]
@@ -44,7 +48,10 @@ namespace Book_Sales_Project.Controllers
                 if (result.Succeeded)
                 {
                     await _userManager.AddToRoleAsync(appUser, "User");
-
+                    var userBasketNew = new Basket();
+                    userBasketNew.TotalPrice = 0;
+                    userBasketNew.CustomerId = appUser.Id;
+                    _basketService.TAdd(userBasketNew);
                     return RedirectToAction("Index", "Login");
                 }
                 else
