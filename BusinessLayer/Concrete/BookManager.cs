@@ -34,7 +34,12 @@ namespace BusinessLayer.Concrete
             _bookDal.Delete(t);
         }
 
-        public Book TGetByID(int id)
+		public Book TGetBookById(int bookId)
+		{
+			return _bookDal.GetBookById(bookId);
+		}
+
+		public Book TGetByID(int id)
         {
             return _bookDal.GetById(id);
         }

@@ -11,5 +11,6 @@ namespace BusinessLayer.Abstract
      public interface IBookService :IGenericService<Book>
     {
 		List<Book> BookSearch(Expression<Func<Book, bool>> filter);
+		public Book TGetBookById(int bookId);
 	}
 }

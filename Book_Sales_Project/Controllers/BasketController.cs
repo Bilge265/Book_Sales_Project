@@ -15,37 +15,57 @@ namespace Book_Sales_Project.Controllers
 	{
 		private readonly IBasketService _basketService;
 		private readonly IBasketItemService _basketItemService;
+		private readonly IBookService _bookService;
 		private readonly UserManager<AppUser> _userManager;
 
-		public BasketController(IBasketService basketService, UserManager<AppUser> userManager, IBasketItemService basketItemService)
+		public BasketController(IBasketService basketService, IBasketItemService basketItemService, IBookService bookService, UserManager<AppUser> userManager)
 		{
 			_basketService = basketService;
-			_userManager = userManager;
 			_basketItemService = basketItemService;
+			_bookService = bookService;
+			_userManager = userManager;
 		}
+
 		[HttpGet]
 		public async Task<IActionResult> Index()
 		{
 			var user = await _userManager.GetUserAsync(HttpContext.User);
-			var basketItems = _basketService.TGetAllBasketItemsByBasketId(user.Id);
-
-			return View(basketItems);
+			var userBasket = _basketService.TGetUserBasket(user.Id);
+			var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
+		
+			var viewModel = new BasketViewModel
+			{
+				BasketItems = basketItems,
+				Baskets = userBasket,
+			};
+			return View(viewModel);
 		}
 		[HttpPost]
 		public async Task<IActionResult> AddToBasket(int bookId, int quantity)
 		{
             var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userBasket = _basketService.TGetUserBasket(user.Id); 
+            var userBasket = _basketService.TGetUserBasket(user.Id);
+			
+			var book = _bookService.TGetBookById(bookId);
+			var productTotalPrice = book.Price * quantity;
 
-            var basketItem = new BasketItem
-            {
-                BookId = bookId,
-                Quantity = quantity,
+			var basketItem = new BasketItem
+			{
+				BookId = bookId,
+				Quantity = quantity,
+				ProductTotalPrice = productTotalPrice,
                 BasketId = userBasket.Id 
             };
 
             _basketItemService.TAdd(basketItem);
-            return RedirectToAction("Index", "Index");
+
+			var updatedBasketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
+			decimal totalPrice = updatedBasketItems.Sum(item => item.ProductTotalPrice);
+
+			userBasket.TotalPrice = totalPrice;
+			_basketService.TUpdate(userBasket);
+
+			return RedirectToAction("Index", "Basket");
         }
 	}
 }

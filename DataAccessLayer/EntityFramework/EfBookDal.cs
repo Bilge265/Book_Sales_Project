@@ -25,5 +25,9 @@ namespace DataAccessLayer.EntityFramework
 		{
 			return _context.Set<Book>().Where(filter).ToList();
 		}
+		public Book GetBookById(int bookId)
+		{
+			return _context.Books.FirstOrDefault(b => b.ID == bookId);
+		}
 	}
 }
