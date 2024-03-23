@@ -19,18 +19,17 @@ namespace EntityLayer.Concrete
         public decimal Price { get; set; }
         public int Stock {  get; set; }
         public int PageCount { get; set; }
+
         public bool? isNew { get; set; }
+		public byte[]? ImageUrl1 { get; set; }
+		public byte[]? ImageUrl2 { get; set; }
+
+		public virtual ICollection<BasketItem> BasketItems { get; set; }
 
         [ForeignKey("User")]
         public int UserId { get; set; }
         public virtual AppUser User { get; set; }
-		//public virtual ICollection<BookSale> BookSales { get; set; }
-		//public virtual ICollection<BookImage> BookImages { get; set; }
-	
-		public byte[]? ImageUrl1 { get; set; }
-        public byte[]? ImageUrl2 { get; set; }
 
- 
 
     }
 }

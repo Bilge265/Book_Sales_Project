@@ -16,7 +16,8 @@ namespace EntityLayer.Concrete
 		public decimal TotalPrice { get; set; }
 
 		public virtual ICollection<BasketItem> BasketItems { get; set; }
-        [ForeignKey("Customer")]
+
+		[ForeignKey("Customer")]
 		public int CustomerId { get; set; }
 		public virtual AppUser Customer { get; set; }
 	}

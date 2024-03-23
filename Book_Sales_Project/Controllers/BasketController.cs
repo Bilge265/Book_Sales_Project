@@ -1,6 +1,11 @@
 ﻿using Book_Sales_Project.Models.BasketViewModels;
 using BusinessLayer.Abstract;
+using BusinessLayer.ValidationRules;
+using EntityLayer.Concrete;
+using EntityLayer.Identity;
+using FluentValidation.Results;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Book_Sales_Project.Controllers
@@ -8,24 +13,39 @@ namespace Book_Sales_Project.Controllers
 	[Authorize(Roles = "User")]
 	public class BasketController : Controller
 	{
-		private readonly IBasketItemService _basketItemService;
 		private readonly IBasketService _basketService;
-		public BasketController(IBasketItemService basketItemService, IBasketService basketService)
+		private readonly IBasketItemService _basketItemService;
+		private readonly UserManager<AppUser> _userManager;
+
+		public BasketController(IBasketService basketService, UserManager<AppUser> userManager, IBasketItemService basketItemService)
 		{
-			_basketItemService = basketItemService;
 			_basketService = basketService;
+			_userManager = userManager;
+			_basketItemService = basketItemService;
+		}
+		[HttpGet]
+		public async Task<IActionResult> Index()
+		{
+			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var basketItems = _basketService.TGetAllBasketItemsByBasketId(user.Id);
+
+			return View(basketItems);
 		}
 
-		public IActionResult Index()
+		[HttpPost]
+		public async Task<IActionResult> AddToBasket(BasketItem basketItem)
 		{
-			var basketItems = _basketItemService.TGetAllBasketItems();
-			var baskets = _basketService.TGetByID(1);
-			BasketViewModel model = new BasketViewModel
+			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var userBasket = _basketService.TGetUserBasket(user.Id);
+			 BasketItemValidator validator = new BasketItemValidator();
+             ValidationResult validationResult = validator.Validate(basketItem);
+			if (validationResult.IsValid)
 			{
-				BasketItems = basketItems,
-				Baskets = baskets
-			};
-			return View(model);
+			
+			   _basketItemService.TAdd(basketItem);
+				RedirectToAction("Index", "Basket");
+			}
+			return View();
 		}
 
 	}
