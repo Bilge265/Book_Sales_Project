@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace Book_Sales_Project.Controllers
 {
 	[Authorize(Roles = "User")]
-	public class IndexController : Controller
+	public class BasketController : Controller
 	{
 		private readonly IBasketService _basketService;
 		private readonly IBasketItemService _basketItemService;
