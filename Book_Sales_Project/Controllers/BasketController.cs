@@ -18,7 +18,7 @@ namespace Book_Sales_Project.Controllers
 
 		public IActionResult Index()
 		{
-			var basketItems = _basketItemService.TGetAllBasketItems();
+			var basketItems = _basketItemService.TGetList();
 			var baskets = _basketService.TGetByID(1);
 			BasketViewModel model = new BasketViewModel
 			{
