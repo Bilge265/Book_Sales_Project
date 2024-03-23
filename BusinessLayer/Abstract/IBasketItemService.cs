@@ -10,5 +10,7 @@ namespace BusinessLayer.Abstract
 {
     public interface IBasketItemService : IGenericService<BasketItem>
     {
-	}
+    
+
+    }
 }

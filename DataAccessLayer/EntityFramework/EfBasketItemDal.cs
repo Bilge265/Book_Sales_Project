@@ -20,7 +20,6 @@ namespace DataAccessLayer.EntityFramework
         {
 			_context = context;
 		}
-		
 
-	}
+    }
 }

@@ -32,13 +32,48 @@ namespace Book_Sales_Project.Controllers
 			return View(basketItems);
 		}
 
-		[HttpPost]
-		public async Task<IActionResult> AddToBasket(BasketItem basketItem)
-		{
-			var basketItems = _basketItemService.TGetList();
-			var baskets = _basketService.TGetByID(1);
-			return View();
-		}
+		//[HttpPost]
+		//public async Task<IActionResult> AddToBasket(BasketItem basketItem)
+		//{
+		//	var basketItems = _basketItemService.TGetList();
+		//	var baskets = _basketService.TGetByID(1);
+		//	return View();
 
-	}
+	//}
+	[HttpPost]
+	public async Task<IActionResult> AddToBasket(int bookId, int quantity)
+	{
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            var userBasket = _basketService.TGetUserBasket(user.Id); // Bu metod kullanıcının sepetini getirir, eğer yoksa null döner
+
+            // Eğer kullanıcının sepeti yoksa, yeni bir sepet oluştur
+            if (userBasket == null)
+            {
+				var userBasketNew = new Basket();
+				userBasketNew.TotalPrice = 0;
+				userBasketNew.CustomerId = user.Id;
+				_basketService.TAdd(userBasketNew);
+
+                /*userBasket = _basketService.TAdd();*/ // Yeni bir sepet oluşturur ve kullanıcının sepetini döner
+            }
+
+            // Şimdi basketId değerini kullanıcının sepetinin Id'sine eşitliyoruz
+
+
+            // Yeni bir BasketItem nesnesi oluşturuluyor ve gerekli alanlar atanıyor
+            var basketItem = new BasketItem
+            {
+                BookId = bookId,
+                Quantity = quantity,
+                BasketId = userBasket.Id // BasketId değeri atanıyor
+            };
+
+            // BasketItemService üzerinden sepete öğe ekleniyor
+            _basketItemService.TAdd(basketItem);
+
+            // Kullanıcıyı anasayfaya yönlendiriyoruz
+            return RedirectToAction("Index", "Home");
+        }
+}
 }

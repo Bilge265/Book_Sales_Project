@@ -10,7 +10,6 @@ namespace DataAccessLayer.Abstract
 {
     public interface IBasketItemDal : IGenericDal<BasketItem>
     {
-		
 
-	}
+    }
 }

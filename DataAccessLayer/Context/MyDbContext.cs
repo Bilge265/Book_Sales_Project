@@ -24,7 +24,7 @@ namespace DataAccessLayer.Context
                 .HasOne(bi => bi.Books)
                 .WithMany()
                 .HasForeignKey(bi => bi.BookId)
-                .OnDelete(DeleteBehavior.Restrict); // Specify ON DELETE NO ACTION
+                .OnDelete(DeleteBehavior.Restrict); 
         }
     }
 }
