@@ -29,7 +29,12 @@ namespace BusinessLayer.Concrete
             _basketItemDal.Delete(t);
         }
 
-        public BasketItem TGetByID(int id)
+		public BasketItem TGetByBasketIdAndBookId(int basketId, int bookId)
+		{
+			return _basketItemDal.GetByBasketIdAndBookId(basketId, bookId);
+		}
+
+		public BasketItem TGetByID(int id)
         {
            return _basketItemDal.GetById(id);
         }

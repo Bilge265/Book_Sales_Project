@@ -20,6 +20,10 @@ namespace DataAccessLayer.EntityFramework
         {
 			_context = context;
 		}
+		public BasketItem GetByBasketIdAndBookId(int basketId, int bookId)
+		{
+			return _context.BasketItems.FirstOrDefault(bi => bi.BasketId == basketId && bi.BookId == bookId);
+		}
 
 	}
 }

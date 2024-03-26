@@ -45,20 +45,28 @@ namespace Book_Sales_Project.Controllers
 		{
             var user = await _userManager.GetUserAsync(HttpContext.User);
             var userBasket = _basketService.TGetUserBasket(user.Id);
-			
-			var book = _bookService.TGetBookById(bookId);
-			var productTotalPrice = book.Price * quantity;
+			var existingItem = _basketItemService.TGetByBasketIdAndBookId(userBasket.Id, bookId);
 
-			var basketItem = new BasketItem
+			if (existingItem != null)
 			{
-				BookId = bookId,
-				Quantity = quantity,
-				ProductTotalPrice = productTotalPrice,
-                BasketId = userBasket.Id 
-            };
+				existingItem.Quantity += quantity;
+				_basketItemService.TUpdate(existingItem);
+			}
+			else
+			{
+				var book = _bookService.TGetBookById(bookId);
+				var productTotalPrice = book.Price * quantity;
 
-            _basketItemService.TAdd(basketItem);
+				var basketItem = new BasketItem
+				{
+					BookId = bookId,
+					Quantity = quantity,
+					ProductTotalPrice = productTotalPrice,
+					BasketId = userBasket.Id
+				};
 
+				_basketItemService.TAdd(basketItem);
+			}
 			var updatedBasketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
 			decimal totalPrice = updatedBasketItems.Sum(item => item.ProductTotalPrice);
 
