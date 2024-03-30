@@ -44,10 +44,25 @@ namespace BusinessLayer.Concrete
            return _basketItemDal.GetList();
         }
 
-        public void TUpdate(BasketItem t)
+		public void TRemoveItemFromBasket(int bookId)
+		{
+			_basketItemDal.RemoveItemFromBasket(bookId);
+		}
+
+		public void TUpdate(BasketItem t)
         {
            _basketItemDal.Update(t);
         }
-        
-    }
+
+		public void TUpdateItemQuantity(int basketId, int bookId, int newQuantity)
+		{
+			var basketItem = _basketItemDal.GetByBasketIdAndBookId(basketId, bookId);
+
+			if (basketItem != null)
+			{
+				basketItem.Quantity = newQuantity;
+				_basketItemDal.Update(basketItem);
+			}
+		}
+	}
 }

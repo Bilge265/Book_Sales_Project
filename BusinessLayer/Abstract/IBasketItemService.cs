@@ -12,6 +12,7 @@ namespace BusinessLayer.Abstract
     {
 
 		public BasketItem TGetByBasketIdAndBookId(int basketId, int bookId);
-
+		public void TRemoveItemFromBasket(int bookId);
+		public void TUpdateItemQuantity(int basketId, int bookId, int newQuantity);
 	}
 }
