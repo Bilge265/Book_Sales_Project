@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,12 @@ namespace BusinessLayer.Concrete
             _orderDal.Delete(t);
         }
 
-        public Order TGetByID(int id)
+		public IEnumerable<OrderItem> TGetAllOrderItems(int id)
+		{
+			return _orderDal.GetAllOrderItems(id);
+		}
+
+		public Order TGetByID(int id)
         {
             return _orderDal.GetById(id);
         }
@@ -38,7 +44,12 @@ namespace BusinessLayer.Concrete
             return _orderDal.GetList();
         }
 
-        public void TUpdate(Order t)
+		public Order TGetUserOrder(int userId)
+		{
+			return _orderDal.GetUserOrder(userId);
+		}
+
+		public void TUpdate(Order t)
         {
             _orderDal.Update(t);
         }

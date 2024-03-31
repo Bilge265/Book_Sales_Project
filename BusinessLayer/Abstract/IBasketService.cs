@@ -12,6 +12,6 @@ namespace BusinessLayer.Abstract
     {
 		public Basket TGetUserBasket(int userId);
 		public IEnumerable<BasketItem> TGetAllBasketItemsByBasketId(int id);
-
+	
 	}
 }

@@ -2,6 +2,7 @@
 using DataAccessLayer.Context;
 using DataAccessLayer.Repository;
 using EntityLayer.Concrete;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,23 @@ namespace DataAccessLayer.EntityFramework
 
         public EfOrderDal(MyDbContext context) : base(context)
         {
-        }
-    }
+			_context = context;
+
+		}
+		public Order GetUserOrder(int userId)
+		{
+			return _context.Orders
+				.Include(b => b.OrderItems)
+				.FirstOrDefault(b => b.CustomerId == userId);
+
+		}
+		public IEnumerable<OrderItem> GetAllOrderItems(int id)
+		{
+			return _context.Orders
+				.Include(x => x.OrderItems)
+					.ThenInclude(item => item.Books)
+					.FirstOrDefault(order => order.Id == id)
+					?.OrderItems;
+		}
+	}
 }

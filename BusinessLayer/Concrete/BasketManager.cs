@@ -51,5 +51,7 @@ namespace BusinessLayer.Concrete
 		{
 			return _basketDal.GetAllBasketItemsByBasketId(id);
 		}
+
+	
 	}
 }

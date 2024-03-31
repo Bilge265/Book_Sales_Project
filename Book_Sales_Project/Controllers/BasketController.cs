@@ -82,6 +82,7 @@ namespace Book_Sales_Project.Controllers
 
 			return RedirectToAction("Index", "Basket");
         }
+
 		[HttpPost]
 		public IActionResult DeleteBasket(int bookId)
 		{
@@ -89,58 +90,6 @@ namespace Book_Sales_Project.Controllers
 			return RedirectToAction("Index", "Basket"); 
 		}
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteBasketItem()
-        {
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userBasket = _basketService.TGetUserBasket(user.Id);
-            var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
-			decimal totalPrice = userBasket.TotalPrice;
-
-			var order = new Order
-			{
-				CustomerId= user.Id,
-				OrderDate = DateTime.Now,
-				TotalPrice = totalPrice,
-	
-			};
-
-			_orderService.TAdd(order);
-
-
-			foreach (var basketItem in userBasket.BasketItems)
-			{
-				var orderItem = new OrderItem
-				{
-					Quantity = basketItem.Quantity,
-					BookId = basketItem.BookId,
-				};
-			
-				_orderItemService.TAdd(orderItem);
-			}
-
-
-			//if (basketItems != null)
-			//         {
-
-			//             foreach (var basketItem in basketItems)
-			//             {
-			//                 _basketItemService.TDelete(basketItem);
-			//             }
-			//             var updatedBasketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
-			//             decimal totalPrice2 = updatedBasketItems.Sum(item => item.ProductTotalPrice);
-
-			//             userBasket.TotalPrice = totalPrice2;
-			//             _basketService.TUpdate(userBasket);
-			//             return RedirectToAction("Index", "Order");
-			//         }
-			//         else
-			//         {
-			//             TempData["ErrorMessage"] = "Kullanıcıya ait bir sepet bulunamadı.";
-			//             return RedirectToAction("Index", "Basket");
-			//         }
-			return RedirectToAction("Index", "Order");
-		}
 
     }
 }

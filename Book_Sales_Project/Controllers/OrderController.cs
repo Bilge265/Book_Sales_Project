@@ -1,4 +1,6 @@
-﻿using Book_Sales_Project.Models.BasketViewModels;
+﻿
+using Book_Sales_Project.Models.BasketViewModels;
+using Book_Sales_Project.Models.OrderViewModels;
 using BusinessLayer.Abstract;
 using EntityLayer.Concrete;
 using EntityLayer.Identity;
@@ -32,21 +34,68 @@ namespace Book_Sales_Project.Controllers
         public async Task<IActionResult> Index()
         {
 			var user = await _userManager.GetUserAsync(HttpContext.User);
-			var userOrder = _basketService.TGetUserBasket(user.Id);
-			var orderItems = _basketService.TGetAllBasketItemsByBasketId(userOrder.Id);
-
-			var viewModel = new OrderViewModel
+			var userBasket = _basketService.TGetUserBasket(user.Id);
+			var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
+			var addresses = userBasket.Customer?.Addresses;
+			var viewModel = new BasketViewModel
 			{
-				OrderItems = orderItems,
-				Orders = userOrder,
+				BasketItems = basketItems,
+				Baskets = userBasket,
+				Address=addresses,
 			};
-			return View(viewModel);			
-        }
+			return View(viewModel);
+		}
 
 		[HttpPost]
-		public IActionResult Index(int orderId)
+		public async Task<IActionResult> Index(int id)
 		{
-			return View();
+			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var userBasket = _basketService.TGetUserBasket(user.Id);
+			var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
+			decimal totalPrice = userBasket.TotalPrice;
+
+			var order = new Order
+			{
+				CustomerId = user.Id,
+				OrderDate = DateTime.Now,
+				TotalPrice = totalPrice,
+
+			};
+
+			_orderService.TAdd(order);
+
+
+			foreach (var basketItem in userBasket.BasketItems)
+			{
+				var orderItem = new OrderItem
+				{
+					Quantity = basketItem.Quantity,
+					BookId = basketItem.BookId,
+				};
+
+				_orderItemService.TAdd(orderItem);
+			}
+
+			if (basketItems != null)
+			{
+
+				foreach (var basketItem in basketItems)
+				{
+					_basketItemService.TDelete(basketItem);
+				}
+				var updatedBasketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
+				decimal totalPrice2 = updatedBasketItems.Sum(item => item.ProductTotalPrice);
+
+				userBasket.TotalPrice = totalPrice2;
+				_basketService.TUpdate(userBasket);
+				return RedirectToAction("Index", "Order");
+			}
+			else
+			{
+				TempData["ErrorMessage"] = "Kullanıcıya ait bir sepet bulunamadı.";
+				return RedirectToAction("Index", "Basket");
+			}
+		
 		}
 	}
 }

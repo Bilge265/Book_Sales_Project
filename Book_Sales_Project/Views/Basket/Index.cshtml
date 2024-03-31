@@ -4,12 +4,22 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .custom-link {
+        color: #FF4B2B;
+    }
 
-<form class="bg0 p-t-75 p-b-85" asp-controller="Basket" asp-action="DeleteBasketItem" method="post">
+        .custom-link:hover {
+            color: #222;
+        }
+</style>
+
+<form class="bg0 p-t-75 p-b-85" asp-controller="Order" asp-action="Index" method="get">
     <div class="container">
         <div class="row">
             <div class="col-lg-10 col-xl-7 m-lr-auto m-b-50">
                 <div class="m-l-25 m-r--38 m-lr-0-xl">
+
                     <div class="wrap-table-shopping-cart">
                         <table class="table-shopping-cart">
                             <tr class="table_head">
@@ -36,25 +46,25 @@
                             <td class="column-3">
                                 <div class="wrap-num-product flex-w m-l-auto m-r-0">
                                     <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                        <button onclick="decreaseQuantity('@item.BookId')" class="fs-16 zmdi zmdi-minus"></button>
+                                        <i class="fs-16 zmdi zmdi-minus"></i>
                                     </div>
 
                                     <input class="mtext-104 cl3 txt-center num-product" type="number" value="@item.Quantity" id="quantity_@item.BookId" name="Quantity" required>
 
                                     <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                        <button onclick="increaseQuantity('@item.BookId')" class="fs-16 zmdi zmdi-plus"></button>
+                                        <i class="fs-16 zmdi zmdi-plus"></i>
                                     </div>
                                 </div>
                             </td>
 
                             <td class="column-4" id="totalPrice_@item.BookId">@item.ProductTotalPrice TL</td>
-                            <td class="column-5"><button onclick="removeFromBasket('@item.BookId', '@item.ProductTotalPrice')"><i class="fs-20 zmdi zmdi-delete"></i></button></td>
+                                    <td class="column-5"><a href="/Basket/Index" onclick="removeFromBasket('@item.BookId', '@item.ProductTotalPrice')" class="custom-link"><i class="fs-20 zmdi zmdi-delete"></i></a></td>
                         </tr>
                         }
                         
                     </table>
                 </div>
-
+               
                 <div class="flex-w flex-sb-m bor15 p-t-18 p-b-15 p-lr-40 p-lr-15-sm">
                     <div class="flex-w flex-m m-r-20 m-tb-5">
                         <div class="size-208">
@@ -66,12 +76,13 @@
                         
                     </div>
                     <div class="size-209">
-                        <span class="mtext-110 cl2" id="totalPrice">@Model.Baskets.TotalPrice</span>
+                        <span class="mtext-110 cl2" >@Model.Baskets.TotalPrice</span>
                     </div>
                     <div class="flex-c-m stext-101 cl2 size-119 bg8 bor13 hov-btn3 p-lr-15 trans-04 pointer m-tb-10">
                             <button type="submit"> Sepeti Tamamla</button>
                         </div>
                 </div>
+         
             </div>
         </div>
 
@@ -83,8 +94,10 @@
 
 @section Scripts{
 <script>
+
     function removeFromBasket(bookId, productPrice) {
-    $.ajax({
+         
+                $.ajax({
         url: '/Basket/DeleteBasket',
         type: 'POST',
         data: { bookId: bookId },

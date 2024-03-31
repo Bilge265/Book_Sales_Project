@@ -2,6 +2,7 @@
 using DataAccessLayer.Context;
 using DataAccessLayer.Repository;
 using EntityLayer.Concrete;
+using EntityLayer.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DataAccessLayer.EntityFramework
@@ -30,5 +31,7 @@ namespace DataAccessLayer.EntityFramework
 				.Include(b => b.BasketItems)
 				.FirstOrDefault(b => b.CustomerId == userId);
 		}
+
+
 	}
 }
