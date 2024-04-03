@@ -12,7 +12,6 @@ namespace DataAccessLayer.Context
         public DbSet<Book>Books { get; set; }
 		public DbSet<Basket> Baskets { get; set; }
         public DbSet<BasketItem> BasketItems { get; set; }
-		public DbSet<Address> Address { get; set; }
 		public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
 

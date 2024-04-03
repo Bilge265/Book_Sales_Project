@@ -35,9 +35,6 @@ builder.Services.AddScoped<IUserService, UserManager>();
 builder.Services.AddScoped<IBookDal, EfBookDal>();
 builder.Services.AddScoped<IBookService, BookManager>();
 
-builder.Services.AddScoped<IAddressDal, EfAddressDal>();
-builder.Services.AddScoped<IAddressService, AddressManager>();
-
 builder.Services.AddScoped<IBasketDal, EfBasketDal>();
 builder.Services.AddScoped<IBasketService, BasketManager>();
 

@@ -27,7 +27,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextBoxFor(x=>x.Baskets.Customer.Name,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15",type="text", placeholder="Adınızı Giriniz."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.Name,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15",type="text", placeholder="Adınızı Giriniz." ,required = "required" })
 							</div>
 						</div>
 
@@ -40,7 +40,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextBoxFor(x=>x.Baskets.Customer.Surname,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Soyadınızı Giriniz."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.Surname,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Soyadınızı Giriniz." ,required = "required" })
 							</div>
 						</div>
 						<div class="size-208">
@@ -52,7 +52,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextBoxFor(x=>x.Baskets.Customer.PhoneNumber,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Telefon Numaranızı Giriniz."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.PhoneNumber,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Telefon Numaranızı Giriniz." ,required = "required"  })
 							</div>
 						</div>
 					</div>
@@ -67,7 +67,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">						
-								@Html.TextBoxFor(x=>x.Baskets.Customer.PhoneNumber,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="İlinizi Yazınız."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.Province,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="İlinizi Yazınız."  ,required = "required"})
 							</div>
 						</div>
 						<div class="size-208">
@@ -79,7 +79,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextBoxFor(x=>x.Baskets.Customer.PhoneNumber,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="İlçenizi Yazınız."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.District,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="İlçenizi Yazınız." ,required = "required" })
 							</div>
 						</div>
 						<div class="size-208">
@@ -90,7 +90,7 @@
 
 						<div class="size-209">								
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextBoxFor(x=>x.Address,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Mahallenizi Yazınız."  })
+										@Html.TextBoxFor(x=>x.Baskets.Customer.Street,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Mahallenizi Yazınız." ,required = "required" })
 							</div>
 								
 						</div>
@@ -103,7 +103,7 @@
 						<div class="size-209">
 
 							<div class="bor8 bg0 m-b-22">
-								@Html.TextAreaFor(x=>x.Address,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Açık adresinizi Yazınız."  })
+										@Html.TextAreaFor(x=>x.Baskets.Customer.AddressDesc,new { @class = "stext-111 cl8 plh3 size-111 p-lr-15", type="text", placeholder="Açık adresinizi Yazınız." ,required = "required" })
 							</div>
 						</div>
 							

@@ -1,4 +1,6 @@
 ﻿using Book_Sales_Project.Models;
+using Book_Sales_Project.Models.BasketViewModels;
+using Book_Sales_Project.Models.OrderViewModels;
 using BusinessLayer.Abstract;
 using EntityLayer.Identity;
 using Microsoft.AspNetCore.Authorization;
@@ -12,14 +14,18 @@ namespace Book_Sales_Project.Controllers
 	{
         private readonly IUserService _userService;
         private readonly UserManager<AppUser> _userManager;
+		private readonly IOrderItemService _orderItemService;
+		private readonly IOrderService _orderService;
 
-        public UserController(IUserService userService, UserManager<AppUser> userManager)
-        {
-            _userService = userService;
-            _userManager = userManager;
-        }
+		public UserController(IUserService userService, UserManager<AppUser> userManager, IOrderItemService orderItemService, IOrderService orderService)
+		{
+			_userService = userService;
+			_userManager = userManager;
+			_orderItemService = orderItemService;
+			_orderService = orderService;
+		}
 
-        [HttpGet]
+		[HttpGet]
         public async Task<IActionResult> Index()
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -92,6 +98,19 @@ namespace Book_Sales_Project.Controllers
                 return View(model);
             }
         }
+		public async Task<IActionResult> MyOrders()
+		{
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userOrder = _orderService.TGetList();
+            var orderItems = _orderItemService.TGetList();
+            var viewModel = new OrderViewModels
+            {
+               OrderItems = orderItems,
+               
+            };
+     
+			return View(viewModel);
+		}
 
-    }
+	}
 }
