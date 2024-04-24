@@ -100,16 +100,17 @@ namespace Book_Sales_Project.Controllers
         }
 		public async Task<IActionResult> MyOrders()
 		{
-            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+
             var userOrder = _orderService.TGetList();
             var orderItems = _orderItemService.TGetList();
             var viewModel = new OrderViewModels
             {
-               OrderItems = orderItems,
-               
+                OrderItems = orderItems,
+
             };
-     
-			return View(viewModel);
+
+            return View(viewModel);
 		}
 
 	}

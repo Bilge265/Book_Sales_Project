@@ -130,12 +130,12 @@ namespace Book_Sales_Project.Controllers
             values.Stock = updateBook.Stock;
             values.Price = updateBook.Price;
             values.PageCount = updateBook.PageCount;
-
+            
             BookValidator validator = new BookValidator();
             ValidationResult validationResult = validator.Validate(values);
             if (validationResult.IsValid)
             {
-                values.ID = 1;
+              
                 values.UpdateTime = DateTime.Now;
                 _bookService.TUpdate(values);          
                 return RedirectToAction("BookList", "Admin");
