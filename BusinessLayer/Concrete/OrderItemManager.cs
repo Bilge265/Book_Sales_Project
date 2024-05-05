@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Abstract;
 using DataAccessLayer.Abstract;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -17,7 +18,10 @@ namespace BusinessLayer.Concrete
         {
             _orderItemDal = orderItemDal;
         }
-
+        public IEnumerable<OrderItem> TGetAllOrderItems(int id)
+        {
+            return _orderItemDal.GetAllOrderItems(id);
+        }
         public void TAdd(OrderItem t)
         {
             _orderItemDal.Insert(t);

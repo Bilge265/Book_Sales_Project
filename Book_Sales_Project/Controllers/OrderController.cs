@@ -49,7 +49,7 @@ namespace Book_Sales_Project.Controllers
 			var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
 			decimal totalPrice = userBasket.TotalPrice;		
 			var order = new Order
-			{
+			{				
 				CustomerId = user.Id,
 				OrderDate = DateTime.Now,
 				TotalPrice = totalPrice,
@@ -66,6 +66,7 @@ namespace Book_Sales_Project.Controllers
 			{
 				var orderItem = new OrderItem
 				{
+					OrderId= order.Id,
 					Quantity = basketItem.Quantity,
 					BookId = basketItem.BookId,
 				};

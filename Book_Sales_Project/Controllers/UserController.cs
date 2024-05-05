@@ -1,5 +1,4 @@
 ﻿using Book_Sales_Project.Models;
-using Book_Sales_Project.Models.BasketViewModels;
 using Book_Sales_Project.Models.OrderViewModels;
 using BusinessLayer.Abstract;
 using EntityLayer.Identity;
@@ -100,15 +99,22 @@ namespace Book_Sales_Project.Controllers
         }
 		public async Task<IActionResult> MyOrders()
 		{
-
-
-            var userOrder = _orderService.TGetList();
-            var orderItems = _orderItemService.TGetList();
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userOrder = _orderService.TGetUserOrder(user.Id);
+            var orderItems = _orderItemService.TGetAllOrderItems(userOrder.Id);
             var viewModel = new OrderViewModels
             {
                 OrderItems = orderItems,
-
+                Orders=userOrder
             };
+
+            //var userOrder = _orderService.TGetList();
+            //var orderItems = _orderItemService.TGetList();
+            //var viewModel = new OrderViewModels
+            //{
+            //    OrderItems = orderItems,
+
+            //};
 
             return View(viewModel);
 		}

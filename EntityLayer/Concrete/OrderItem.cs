@@ -7,7 +7,11 @@ namespace EntityLayer.Concrete
         public int Id { get; set; }
 		public int Quantity { get; set; }
 
-		[ForeignKey("Book")]
+        [ForeignKey("Order")]
+        public int  OrderId { get; set; }
+        public virtual Order Orders { get; set; }
+
+        [ForeignKey("Book")]
         public int BookId { get; set; }
         public virtual Book Books { get; set; }
 

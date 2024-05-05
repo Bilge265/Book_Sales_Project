@@ -29,10 +29,7 @@ namespace BusinessLayer.Concrete
             _orderDal.Delete(t);
         }
 
-		public IEnumerable<OrderItem> TGetAllOrderItems(int id)
-		{
-			return _orderDal.GetAllOrderItems(id);
-		}
+
 
 		public Order TGetByID(int id)
         {

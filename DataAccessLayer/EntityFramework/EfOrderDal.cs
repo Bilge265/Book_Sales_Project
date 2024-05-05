@@ -27,13 +27,6 @@ namespace DataAccessLayer.EntityFramework
 				.FirstOrDefault(b => b.CustomerId == userId);
 
 		}
-		public IEnumerable<OrderItem> GetAllOrderItems(int id)
-		{
-			return _context.Orders
-				.Include(x => x.OrderItems)
-					.ThenInclude(item => item.Books)
-					.FirstOrDefault(order => order.Id == id)
-					?.OrderItems;
-		}
+	
 	}
 }

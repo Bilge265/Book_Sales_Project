@@ -23,7 +23,13 @@ namespace DataAccessLayer.Context
                 .HasOne(bi => bi.Books)
                 .WithMany()
                 .HasForeignKey(bi => bi.BookId)
-                .OnDelete(DeleteBehavior.Restrict); 
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<OrderItem>()
+               .HasOne(bi => bi.Books)
+               .WithMany()
+               .HasForeignKey(bi => bi.BookId)
+               .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
