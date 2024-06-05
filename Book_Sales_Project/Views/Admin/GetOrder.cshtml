@@ -1,8 +1,8 @@
 ﻿@using Book_Sales_Project.Models.OrderViewModels;
 @model List<OrderViewModels>
 @{
-    ViewData["Title"] = "MyOrders";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "GetOrder";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
 }
 
 
@@ -22,9 +22,7 @@
 <body class="animsition">
 
     <div class="bg0 m-t-23 p-b-140">
-        <div class="container">
-            @await Html.PartialAsync("Partial/MenuListPartial")
-
+  
             <section class="content">
                 <div class="card">
                     <div class="card-header">
@@ -82,11 +80,11 @@
                                         </td>
 
                                         <td class="project-actions text-center">
-                                            <form asp-action="OrderDetail" asp-controller="User" asp-route-orderId="@item.Orders.Id" method="post">
-                                                <button type="submit" class="btn btn-primary btn-sm">
-                                                    <i class="fas fa-folder"></i> Sipariş Detayı
-                                                </button>
-                                            </form>
+                                        <form asp-action="OrderDetail" asp-controller="Admin" asp-route-orderId="@item.Orders.Id" method="post">
+                                            <button type="submit" class="btn btn-primary btn-sm">
+                                                <i class="fas fa-folder"></i> Sipariş Detayı
+                                            </button>
+                                        </form>
 
                                         </td>
                                     </tr>
@@ -106,7 +104,7 @@
 
 
         </div>
-    </div>
+    
     <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
     <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>

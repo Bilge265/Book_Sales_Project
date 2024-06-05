@@ -23,14 +23,7 @@
                         </p>
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a href="pages/widgets.html" class="nav-link">
-                        <i class="nav-icon fas fa-th"></i>
-                        <p>
-                            Siparişler
-                        </p>
-                    </a>
-                </li>
+
                 <li class="nav-item has-treeview">
                     <a href="#" class="nav-link">
                         <i class="nav-icon fas fa-th"></i>
@@ -56,6 +49,29 @@
                     </ul>
                 </li>
                 <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-th"></i>
+                        <p>
+                            Sipariş İşlemleri
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="@Url.Action("GetOrder","Admin")" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Siparişler</p>
+                            </a>
+                        </li>                   
+                        <li class="nav-item">
+                            <a href="@Url.Action("UserSalesOrder","Admin")" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Kullanıcının yaptığı satışlar</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item has-treeview">
                     <a href="#" class="nav-link ">
                         <i class="nav-icon fas fa-th"></i>
                         <p>
@@ -74,12 +90,6 @@
                             <a href="@Url.Action("SalesRequest","Admin")" class="nav-link">
                                 <i class="far fa-circle nav-icon"></i>
                                 <p>Kitap satış isteği</p>
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
-                                <i class="far fa-circle nav-icon"></i>
-                                <p>Kullanıcının yaptığı satışlar</p>
                             </a>
                         </li>
                     </ul>

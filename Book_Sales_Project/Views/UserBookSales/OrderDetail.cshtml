@@ -1,0 +1,184 @@
+﻿@using Book_Sales_Project.Models.OrderViewModels;
+@model OrderViewModels
+@{
+    ViewData["Title"] = "OrderDetail";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Siparişler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .product-image {
+            width: 100px;
+            height: auto; 
+        }
+    </style>
+</head>
+<body>
+    <section class="content">
+
+        <!-- Default box -->
+        <div class="card">
+            <div class="card-header">
+                <h3 class="card-title">Sipariş Detayı</h3>
+
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                        <i class="fas fa-minus"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">          
+                        <div class="row">
+                            <div class="col-12">
+                                <h4>Sipariş Bilgileri</h4>
+                                <br />
+                                <div class="post">
+                                    <span class="stext-105 cl4  trans-04 js-name-b2 p-b-6">
+                                        Sipariş Numarası:
+                                    </span>
+                                    <span class="stext-102 cl3 p-t-23">
+                                        @Model.Orders.Id
+                                    </span>
+                                </div>
+                                <div class="post">
+                                    <span class="stext-106 cl4">
+                                        Sipariş Tarihi:
+                                    </span>
+                                    <span class="stext-102 cl3 p-t-23">
+                                        @Model.Orders.OrderDate
+                                    </span>
+                                </div>
+                                <div class="post">
+                                    <span class="stext-106 cl4">
+                                        Toplam Tutar:
+                                    </span>
+                                    <span class="stext-102 cl3 p-t-23">
+                                        @Model.Orders.TotalPrice
+                                    </span>
+                                </div>                           
+                                </div>
+                            </div>
+                        
+                        </div>
+                    
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                    <div class="row">
+                     
+                        <div class="col-12">
+
+                            <br />
+                            <br />
+                            <h4>Müşteri Bilgileri</h4>
+                            <br />
+                            <div class="post">
+                                <span class="stext-105 cl4  trans-04 js-name-b2 p-b-6">
+                                    Adı Soyadı:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.Customer.Name @Model.Orders.Customer.Surname
+                                </span>
+                            </div>
+                            <div class="post">
+                                <span class="stext-106 cl4">
+                                    İl:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.Province
+                                </span>
+                            </div>
+                            <div class="post">
+                                <span class="stext-106 cl4">
+                                    İlçe:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.District
+                                </span>
+                            </div>
+                            <div class="post">
+                                <span class="stext-106 cl4">
+                                    Sokak:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.Street
+                                </span>
+                            </div>
+                            <div class="post">
+                                <span class="stext-106 cl4">
+                                    Telefon:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.Customer.PhoneNumber
+                                </span>
+                            </div>
+                            <div class="post">
+                                <span class="stext-106 cl4">
+                                    E-posta:
+                                </span>
+                                <span class="stext-102 cl3 p-t-23">
+                                    @Model.Orders.Customer.Email
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                   
+                    <div class="col-12 col-md-12 col-lg-8 order-2 order-md-1">
+                        <div class="row">
+                            <div class="col-12">
+                                <br />
+                                <br />
+                                <h4>Ürün Bilgileri</h4>
+                                <br />
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Kitap Adı</th>
+                                            <th>Yazar</th>
+                                            <th>Birim Fiyat</th>
+                                            <th>Adet</th>
+                                            <th>Toplam</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var item in Model.OrderItems)
+                                        {
+                                            <tr>
+                                                <td>
+                                                    @{
+                                                        byte[] imageBytes = item.Books.ImageUrl1;
+                                                        string base64String = Convert.ToBase64String(imageBytes);
+                                                        string imgSrc = string.Format("data:image/jpeg;base64,{0}", base64String);
+                                                    }
+                                                    <img src="@imgSrc" alt="IMG-PRODUCT" class="product-image">
+                                                </td>
+                                                <td>@item.Books.Name</td>
+                                                <td>@item.Books.Author</td>
+                                                <td>@item.Books.Price</td>
+                                                <td>@item.Quantity</td>
+                                                <td>@(item.Books.Price * item.Quantity)</td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>        
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+</body>
+</html>

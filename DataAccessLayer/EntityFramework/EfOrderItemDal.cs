@@ -27,11 +27,28 @@ namespace DataAccessLayer.EntityFramework
                 .Where(x=>x.Id == id).ToList();
                 
 
-            //return _context.Orders
-            //	.Include(x => x.OrderItems)
-            //		.ThenInclude(item => item.Books)
-            //		.FirstOrDefault(order => order.Id == id)
-            //		?.OrderItems;
+           
+        }
+        public IEnumerable<OrderItem> GetBookOrderItems(int orderId)
+        {
+            return _context.OrderItems
+                .Include(x => x.Orders) 
+                .Where(x => x.OrderId == orderId) 
+                .ToList();
+        }
+        public IEnumerable<OrderItem> GetOrderItems(int orderId)
+        {
+            return _context.OrderItems
+                           .Include(oi => oi.Books)
+                           .Where(oi => oi.OrderId == orderId)
+                           .ToList();
+        }
+        public IEnumerable<OrderItem> GetOrderItemsByOrderId(int orderId)
+        {
+            return _context.OrderItems
+                           .Include(oi => oi.Books)
+                           .Where(oi => oi.OrderId == orderId)
+                           .ToList();
         }
     }
 }

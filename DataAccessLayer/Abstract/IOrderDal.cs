@@ -10,7 +10,9 @@ namespace DataAccessLayer.Abstract
 {
     public interface IOrderDal : IGenericDal<Order>
     {
-		public Order GetUserOrder(int userId);
-		
-	}
+		IEnumerable<Order> GetUserOrder(int userId);
+        public IEnumerable<Order> GetUserBookOrders(int userId);
+        public List<Order> UserSales(int userId);
+        public Order GetOrderById(int orderId);
+        }
 }

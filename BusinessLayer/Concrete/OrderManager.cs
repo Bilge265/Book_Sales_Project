@@ -28,10 +28,13 @@ namespace BusinessLayer.Concrete
         {
             _orderDal.Delete(t);
         }
+        public Order TGetOrderById(int orderId)
+        {
+            return _orderDal.GetOrderById(orderId);
+        }
 
 
-
-		public Order TGetByID(int id)
+        public Order TGetByID(int id)
         {
             return _orderDal.GetById(id);
         }
@@ -41,7 +44,12 @@ namespace BusinessLayer.Concrete
             return _orderDal.GetList();
         }
 
-		public Order TGetUserOrder(int userId)
+        public IEnumerable<Order> TGetUserBookOrders(int userId)
+        {
+            return _orderDal.GetUserBookOrders(userId);
+        }
+
+        public IEnumerable<Order> TGetUserOrder(int userId)
 		{
 			return _orderDal.GetUserOrder(userId);
 		}
@@ -49,6 +57,11 @@ namespace BusinessLayer.Concrete
 		public void TUpdate(Order t)
         {
             _orderDal.Update(t);
+        }
+
+        public List<Order> TUserSales(int userId)
+        {
+            return _orderDal.UserSales(userId);
         }
     }
 }

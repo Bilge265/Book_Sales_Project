@@ -10,7 +10,9 @@ namespace BusinessLayer.Abstract
 {
     public interface IOrderService : IGenericService<Order>
     {
-		public Order TGetUserOrder(int userId);
-	
-	}
+		IEnumerable<Order> TGetUserOrder(int userId);
+        public IEnumerable<Order> TGetUserBookOrders(int userId);
+        public List<Order> TUserSales(int userId);
+        public Order TGetOrderById(int orderId);
+        }
 }

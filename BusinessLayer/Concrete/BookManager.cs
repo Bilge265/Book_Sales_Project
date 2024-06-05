@@ -53,5 +53,9 @@ namespace BusinessLayer.Concrete
         {
             _bookDal.Update(t);
         }
+        public List<Book> TGetBooksByUserId(int userId)
+        {
+            return _bookDal.GetBooksByUserId(userId);
+        }
     }
 }

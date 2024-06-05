@@ -13,5 +13,7 @@ namespace DataAccessLayer.Abstract
 
 		List<Book> BookSearch(Expression<Func<Book, bool>> filter);
 		public Book GetBookById(int bookId);
-	}
+        public List<Book> GetBooksByUserId(int userId);
+
+    }
 }

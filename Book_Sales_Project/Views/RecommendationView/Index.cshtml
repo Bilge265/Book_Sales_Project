@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kitap Önerisi</title>
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/plugins/fontawesome-free/css/all.min.css">
+    <!-- Ionicons -->
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <!-- overlayScrollbars -->
+    <link rel="stylesheet" href="~/AdminLTE-3.0.4/dist/css/adminlte.min.css">
+    <!-- Google Font: Source Sans Pro -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
+    <style>
+        .book-recommendation-body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+
+        .book-recommendation-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .book-recommendation-title {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .book-recommendation-form {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+            .book-recommendation-form label {
+                margin-right: 10px;
+            }
+
+            .book-recommendation-form select {
+                padding: 8px;
+                font-size: 16px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+            }
+
+            .book-recommendation-form button[type="submit"] {
+                padding: 8px 20px;
+                font-size: 16px;
+                background-color: #FF4B2B;
+                color: #fff;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-left: 5px; /* Buton ile select arasındaki boşluğu sağlamak için */
+            }
+
+        .book-recommendations {
+            margin-top: 20px;
+        }
+
+            .book-recommendations ul {
+                list-style-type: none;
+                padding: 0;
+            }
+
+            .book-recommendations li {
+                padding: 10px;
+                background-color: #f9f9f9;
+                border-radius: 5px;
+                margin-bottom: 10px;
+            }
+
+            .book-recommendations h3 {
+                margin: 0;
+                font-size: 18px;
+            }
+
+            .book-recommendations p {
+                margin: 5px 0 0;
+                font-size: 14px;
+                color: #666;
+            }
+    </style>
+</head>
+<body class="animsition">
+
+    <div class="bg0 m-t-23 p-b-140">
+        <div class="container">
+            @await Html.PartialAsync("Partial/MenuListPartial")
+
+            <div class="book-recommendation-container">
+                <h1 class="book-recommendation-title">Kitap Önerisi</h1>
+                <form class="book-recommendation-form" id="recommendationForm">
+                    <label for="bookName">Okuduğunuz Kitap Adı:</label>
+                    <select id="bookName" name="bookName" required>
+                        <option value="">Kitap Seçiniz</option>
+                        <option value="Dune">Dune</option>
+                        <option value="Romeo ve Juliet">Romeo ve Juliet</option>
+                        <option value="Sherlock Holmes">Sherlock Holmes</option>
+                        <option value="Harry Potter">Harry Potter</option>
+                        <option value="Fondür">Fondür</option>
+                        <option value="Da Vinci Şifresi">Da Vinci Şifresi</option>
+                        <option value="Yüzüklerin Efendisi">Yüzüklerin Efendisi</option>
+                        <option value="Beyaz Diş">Beyaz Diş</option>
+                        <option value="Kırmızı Pazartesi">Kırmızı Pazartesi</option>
+                        <option value="Sineklerin Tanrısı">Sineklerin Tanrısı</option>
+                        <option value="Uyumsuz">Uyumsuz</option>
+                        <option value="Bülbülü Öldürmek">Bülbülü Öldürmek</option>
+                        <option value="Göçebe">Göçebe</option>
+                        <option value="Küçük Kadınlar">Küçük Kadınlar</option>
+                        <option value="Karamazov Kardeşler">Karamazov Kardeşler</option>
+                        <option value="Cesur Yeni Dünya">Cesur Yeni Dünya</option>
+                        <option value="Hobbit">Hobbit</option>
+                        <option value="Simyacı">Simyacı</option>
+                        <option value="Martı Jonathan Livingston">Martı Jonathan Livingston</option>
+                        <option value="Küçük Prens">Küçük Prens</option>
+                        <option value="Fahrenheit 451">Fahrenheit 451</option>
+                        <option value="Gazap Üzümleri">Gazap Üzümleri</option>
+                        <option value="Tutunamayanlar">Tutunamayanlar</option>
+                        <option value="Beyaz Zambaklar Ülkesinde">Beyaz Zambaklar Ülkesinde</option>
+                        <option value="Dönüşüm">Dönüşüm</option>
+                        <option value="Suç ve Ceza">Suç ve Ceza</option>
+                        <option value="Yaban">Yaban</option>
+                        <option value="Aynanın İçindeki Kadın">Aynanın İçindeki Kadın</option>
+                        <option value="1984">1984</option>
+                        <option value="İnci">İnci</option>
+                        <option value="Uçurtma Avcısı">Uçurtma Avcısı</option>
+                        <option value="Şeker Portakalı">Şeker Portakalı</option>
+                        <option value="Dracula">Dracula</option>
+                        <option value="Yerdeniz Üçlemesi">Yerdeniz Üçlemesi</option>
+                        <option value="Yeraltından Notlar">Yeraltından Notlar</option>
+                        <option value="Yitik Kıta Mu">Yitik Kıta Mu</option>
+                        <option value="Bilinmeyen Bir Kadının Mektubu">Bilinmeyen Bir Kadının Mektubu</option>
+                        <option value="Savaş ve Barış">Savaş ve Barış</option>
+                        <option value="Kumarbaz">Kumarbaz</option>
+                        <option value="Fareler ve İnsanlar">Fareler ve İnsanlar</option>
+                        <option value="Dava">Dava</option>
+                        <option value="Babaya Mektup">Babaya Mektup</option>
+                        <option value="Kaptan Grant'ın Çocukları">Kaptan Grant'ın Çocukları</option>
+                        <option value="Kum Kitabı">Kum Kitabı</option>
+                        <option value="Sefiller">Sefiller</option>
+                        <option value="Don Kişot">Don Kişot</option>
+                        <option value="Aylak Adam">Aylak Adam</option>
+                        <option value="Yüzyılın Aşkları">Yüzyılın Aşkları</option>
+                        <option value="Veba">Veba</option>
+                        <option value="İnce Memed">İnce Memed</option>
+                        <option value="İstanbul Hatırası">İstanbul Hatırası</option>
+                        <option value="Gölgesizler">Gölgesizler</option>
+                        <option value="Saatleri Ayarlama Enstitüsü">Saatleri Ayarlama Enstitüsü</option>
+                        <option value="Kürk Mantolu Madonna">Kürk Mantolu Madonna</option>
+                        <option value="Vadideki Zambak">Vadideki Zambak</option>
+                        <option value="Moby Dick">Moby Dick</option>
+                        <option value="Martin Eden">Martin Eden</option>
+                        <option value="Bir Delinin Hatıra Defteri">Bir Delinin Hatıra Defteri</option>
+                        <option value="Bir Yaz Gecesi Rüyası">Bir Yaz Gecesi Rüyası</option>
+                    </select>
+                    <button type="submit">Önerileri Getir</button>
+                </form>
+                <div class="book-recommendations" id="recommendations"></div>
+            </div>
+
+
+        </div>
+    </div>
+    <script>
+        document.getElementById('recommendationForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+            const bookName = document.getElementById('bookName').value;
+            const numRecommendations = 5; // varsayılan olarak 5 tavsiye alınacak
+
+            const response = await fetch(`/api/recommendation?bookName=${encodeURIComponent(bookName)}&numRecommendations=${numRecommendations}`);
+            const data = await response.json();
+
+            const recommendationsDiv = document.getElementById('recommendations');
+            recommendationsDiv.innerHTML = ''; // Önceki tavsiyeleri temizle
+
+            const ul = document.createElement('ul'); // Liste oluştur
+            data.forEach(recommendation => {
+                const li = document.createElement('li'); // Liste öğesi oluştur
+                const title = document.createElement('h3'); // Başlık oluştur
+                const score = document.createElement('p'); // Skor oluştur
+
+                title.textContent = recommendation.title;
+                score.textContent = `Score: ${recommendation.score.toFixed(2)}`;
+
+                li.appendChild(title);
+                li.appendChild(score);
+                ul.appendChild(li);
+            });
+            recommendationsDiv.appendChild(ul); // Listeyi öneriler bölgesine ekle
+        });
+    </script>
+    <script src="~/AdminLTE-3.0.4/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="~/AdminLTE-3.0.4/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- AdminLTE for demo purposes -->
+    <script src="~/AdminLTE-3.0.4/dist/js/demo.js"></script>
+</body>
+</html>

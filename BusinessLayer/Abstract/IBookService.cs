@@ -12,5 +12,7 @@ namespace BusinessLayer.Abstract
     {
 		List<Book> BookSearch(Expression<Func<Book, bool>> filter);
 		public Book TGetBookById(int bookId);
-	}
+        public List<Book> TGetBooksByUserId(int userId);
+
+    }
 }

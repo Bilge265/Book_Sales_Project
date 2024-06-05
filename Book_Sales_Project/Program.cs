@@ -47,6 +47,8 @@ builder.Services.AddScoped<IOrderService, OrderManager>();
 builder.Services.AddScoped<IOrderItemDal, EfOrderItemDal>();
 builder.Services.AddScoped<IOrderItemService, OrderItemManager>();
 
+builder.Services.AddScoped<IRecommendationService, RecommendationManager>();
+
 builder.Services.AddMvc(config =>
 {
     var policy = new AuthorizationPolicyBuilder()
@@ -62,7 +64,7 @@ builder.Services.ConfigureApplicationCookie(options =>
 
     options.LoginPath = "/Login/Index/";
 });
-
+builder.Services.AddHttpClient();
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

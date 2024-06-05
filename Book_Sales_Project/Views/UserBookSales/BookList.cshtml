@@ -2,7 +2,7 @@
 @model List<Book>
 @{
     ViewData["Title"] = "BookList";
-    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
 }
 
 <!DOCTYPE html>
@@ -28,9 +28,9 @@
                 </div>
             </div>
             <div class="card-body">
-    
- 
-               <table class="table table-bordered table-hover" id="example1">
+
+
+                <table class="table table-bordered table-hover" id="example1">
                     <thead>
                         <tr>
                             <th style="width: 1%">
@@ -41,7 +41,7 @@
                             </th>
                             <th style="width: 30%">
                                 Yazar
-                            </th>                      
+                            </th>
                             <th style="width: 8%">
                                 Status
                             </th>
@@ -50,57 +50,51 @@
                         </tr>
                     </thead>
                     <tbody>
-                          @{int counter=1;}
-                          @foreach (var item in Model){
-                            if (item.UserId == 1)
-                            {
-                        <tr>
-                            <td>
-                                @counter
-                            </td>
-                            <td>
-                                <a>
-                                    @item.Name
-                                </a>
-                                <br />
-                                <small>
-                                 Oluşturulma Tarihi: @item.CreationTime
-                                </small>
-                            </td>
-                                <td>
-                                    <a>
-                                        @item.Author
-                                    </a>                             
-                                </td>
+                        @{
+                            int counter = 1;
+                        }
+                        @foreach (var item in Model)
+                        {
+                         
+                            
+                                <tr>
+                                    <td>
+                                        @counter
+                                    </td>
+                                    <td>
+                                        <a>
+                                            @item.Name
+                                        </a>
+                                        <br />
+                                        <small>
+                                            Oluşturulma Tarihi: @item.CreationTime
+                                        </small>
+                                    </td>
+                                    <td>
+                                        <a>
+                                            @item.Author
+                                        </a>
+                                    </td>
 
-                            <td class="project-state">
-                                    <span class="badge badge-success">@item.Status</span>
-                            </td>
+                                    <td class="project-state">
+                                        <span class="badge badge-success">@item.Status</span>
+                                    </td>
 
-                            <td class="project-actions text-center">
-                                    <a class="btn btn-primary btn-sm" href="~/Admin/AdminBookDetail/@item.ID">
-                                    <i class="fas fa-folder">
-                                    </i>
-                                 Kitap Detayı
-                                </a>
-                                    <a class="btn btn-info btn-sm" href="~/Admin/EditBook/@item.ID">
-                                    <i class="fas fa-pencil-alt">
-                                    </i>
-                                 Güncelle
-                                </a>
+                                    <td class="project-actions text-center">
+                                        <a class="btn btn-primary btn-sm" href="~/UserBookSales/UserBookDetail/@item.ID">
+                                            <i class="fas fa-folder">
+                                            </i>
+                                            Kitap Detayı
+                                        </a>
+                            
+                                    </td>
+                                </tr>
+                                counter++;
+                            
+                        }
+                    </tbody>
+                </table>
 
-                                        <a class="btn btn-danger btn-sm delete-button" href="~/Admin/DeleteBook/@item.ID">
-                                    <i class="fas fa-trash">
-                                    </i>
-                                   Sil
-                                </a>
-                            </td>
-                        </tr>
-                            counter++;
-                        } }
-                    </tbody> 
-                </table> 
-              
             </div>
 
         </div>
@@ -109,7 +103,7 @@
     </section>
     @section Scripts{
 
-        <script >
+        <script>
             $(function () {
                 $("#example1").DataTable({
                     "responsive": true,
@@ -138,10 +132,10 @@
                         }
                     }
                 });
-           
+
             });
         </script>
-      
+
         <script>
             $(document).ready(function () {
                 $('.delete-button').click(function (e) {
@@ -167,6 +161,7 @@
         </script>
 
     }
-    
+
 </body>
 </html>
+

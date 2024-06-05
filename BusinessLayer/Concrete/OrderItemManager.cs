@@ -46,5 +46,19 @@ namespace BusinessLayer.Concrete
         {
             _orderItemDal.Update(t);
         }
+
+        public IEnumerable<OrderItem> TGetBookOrderItems(int orderId)
+        {
+          return  _orderItemDal.GetBookOrderItems(orderId);
+        }
+
+        public IEnumerable<OrderItem> TGetOrderItems(int orderId)
+        {
+           return _orderItemDal.GetOrderItems(orderId);
+        }
+        public IEnumerable<OrderItem> TGetOrderItemsByOrderId(int orderId)
+        {
+            return _orderItemDal.GetOrderItemsByOrderId(orderId);
+        }
     }
 }

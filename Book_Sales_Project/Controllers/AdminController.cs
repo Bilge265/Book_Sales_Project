@@ -1,4 +1,5 @@
 ﻿using Book_Sales_Project.Models;
+using Book_Sales_Project.Models.OrderViewModels;
 using BusinessLayer.Abstract;
 using BusinessLayer.ValidationRules;
 using EntityLayer.Concrete;
@@ -18,15 +19,17 @@ namespace Book_Sales_Project.Controllers
         private readonly IBookService _bookService;
         private readonly UserManager<AppUser> _userManager;
         private readonly IUserService _userService;
+        private readonly IOrderItemService _orderItemService;
+        private readonly IOrderService _orderService;
 
-        public AdminController(IBookService bookService, UserManager<AppUser> userManager, IUserService userService)
+        public AdminController(IBookService bookService, UserManager<AppUser> userManager, IUserService userService, IOrderItemService orderItemService, IOrderService orderService)
         {
             _bookService = bookService;
             _userManager = userManager;
             _userService = userService;
+            _orderItemService = orderItemService;
+            _orderService = orderService;
         }
-
-       
 
         [HttpGet]
         public IActionResult AddBook()
@@ -233,6 +236,82 @@ namespace Book_Sales_Project.Controllers
             values.Status = !values.Status;
             _bookService.TUpdate(values);
             return RedirectToAction("SalesRequest", "Admin");
+        }
+
+        
+        public async Task<IActionResult> GetOrder()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+            var userBookOrders = _orderService.TGetUserBookOrders(user.Id);
+            var orderViewModels = new List<OrderViewModels>();
+
+            foreach (var order in userBookOrders)
+            {
+                var orderItems = _orderItemService.TGetBookOrderItems(order.Id);
+                var viewModel = new OrderViewModels
+                {
+                    OrderItems = orderItems,
+                    Orders = order
+                };
+                orderViewModels.Add(viewModel);
+            }
+
+            return View(orderViewModels);
+        }
+        [HttpPost]
+        public async Task<IActionResult> OrderDetail(int orderId)
+        {
+            var order = _orderService.TGetOrderById(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderItems = _orderItemService.TGetOrderItemsByOrderId(orderId).ToList();
+            var orderDetailViewModel = new OrderViewModels
+            {
+                Orders = order,
+                OrderItems = orderItems
+            };
+
+            return View(orderDetailViewModel);
+        }
+        public async Task<IActionResult> UserSalesOrder()
+        {       
+            int adminUserId = 1;
+            var userBookOrders = _orderService.TUserSales(adminUserId);
+            var orderViewModels = new List<OrderViewModels>();
+
+            foreach (var order in userBookOrders)
+            {
+                var orderItems = _orderItemService.TGetOrderItems(order.Id);
+                var viewModel = new OrderViewModels
+                {
+                    OrderItems = orderItems,
+                    Orders = order
+                };
+                orderViewModels.Add(viewModel);
+            }
+
+            return View(orderViewModels);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UserOrderDetail(int orderId)
+        {
+            var order = _orderService.TGetOrderById(orderId);
+            if (order == null)
+            {
+                return NotFound();
+            }
+
+            var orderItems = _orderItemService.TGetOrderItemsByOrderId(orderId).ToList();
+            var orderDetailViewModel = new OrderViewModels
+            {
+                Orders = order,
+                OrderItems = orderItems
+            };
+
+            return View(orderDetailViewModel);
         }
     }
 }

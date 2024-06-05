@@ -47,8 +47,14 @@ namespace Book_Sales_Project.Controllers
 			var user = await _userManager.GetUserAsync(HttpContext.User);
 			var userBasket = _basketService.TGetUserBasket(user.Id);
 			var basketItems = _basketService.TGetAllBasketItemsByBasketId(userBasket.Id);
-			decimal totalPrice = userBasket.TotalPrice;		
-			var order = new Order
+			decimal totalPrice = userBasket.TotalPrice;
+            var phoneNumber = 0;
+            if (!int.TryParse(viewModel.Baskets.Customer.PhoneNumber, out phoneNumber))
+            {
+                ModelState.AddModelError("Baskets.Customer.PhoneNumber", "Geçerli bir telefon numarası giriniz.");
+                return View(viewModel);
+            }
+            var order = new Order
 			{				
 				CustomerId = user.Id,
 				OrderDate = DateTime.Now,
@@ -56,7 +62,8 @@ namespace Book_Sales_Project.Controllers
 				Province = viewModel.Baskets.Customer.Province,
 				District = viewModel.Baskets.Customer.District,
 				Street = viewModel.Baskets.Customer.Street,
-				AddressDesc = viewModel.Baskets.Customer.AddressDesc
+				AddressDesc = viewModel.Baskets.Customer.AddressDesc,
+				PhoneNumber=phoneNumber
 			};
 
 			_orderService.TAdd(order);

@@ -20,13 +20,41 @@ namespace DataAccessLayer.EntityFramework
 			_context = context;
 
 		}
-		public Order GetUserOrder(int userId)
+		public IEnumerable<Order> GetUserOrder(int userId)
 		{
 			return _context.Orders
 				.Include(b => b.OrderItems)
-				.FirstOrDefault(b => b.CustomerId == userId);
-
+				.Where(b => b.CustomerId == userId)
+				.ToList();
 		}
-	
-	}
+        public IEnumerable<Order> GetUserBookOrders(int userId)
+        {
+            var userBookIds = _context.Books.Where(b => b.UserId == userId).Select(b => b.ID).ToList();
+            var userOrders = _context.Orders
+                                     .Include(o => o.OrderItems)
+                                     .ThenInclude(oi => oi.Books) 
+                                     .Include(o => o.Customer)
+                                     .Where(o => o.OrderItems.Any(oi => userBookIds.Contains(oi.BookId)))
+                                     .ToList();
+
+            return userOrders;
+        }
+        public List<Order> UserSales(int userId)
+        {
+            return _context.Orders
+                    .Include(o => o.OrderItems)
+                    .ThenInclude(oi => oi.Books)
+                    .Include(o => o.Customer)
+                    .Where(o => o.OrderItems.Any(oi => oi.Books.UserId != userId))
+                    .ToList();
+        }
+        public Order GetOrderById(int orderId)
+        {
+            return _context.Orders
+        .Include(o => o.Customer)
+        .Include(o => o.OrderItems)
+            .ThenInclude(oi => oi.Books)
+        .FirstOrDefault(o => o.Id == orderId);
+        }
+    }
 }

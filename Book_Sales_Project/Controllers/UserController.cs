@@ -98,26 +98,43 @@ namespace Book_Sales_Project.Controllers
             }
         }
 		public async Task<IActionResult> MyOrders()
-		{
-            var user = await _userManager.GetUserAsync(HttpContext.User);
-            var userOrder = _orderService.TGetUserOrder(user.Id);
-            var orderItems = _orderItemService.TGetAllOrderItems(userOrder.Id);
-            var viewModel = new OrderViewModels
+		{			
+			var user = await _userManager.GetUserAsync(HttpContext.User);
+			var userOrders = _orderService.TGetUserOrder(user.Id); 
+			var orderViewModels = new List<OrderViewModels>(); 
+
+			foreach (var order in userOrders)
+			{
+				var orderItems = _orderItemService.TGetAllOrderItems(order.Id); 
+				var viewModel = new OrderViewModels
+				{
+					OrderItems = orderItems,
+					Orders = order
+				};
+				orderViewModels.Add(viewModel); 
+			}
+
+			return View(orderViewModels);
+
+		}
+        [HttpPost]
+        public async Task<IActionResult> OrderDetail(int orderId)
+        {
+            var order = _orderService.TGetOrderById(orderId);
+            if (order == null)
             {
-                OrderItems = orderItems,
-                Orders=userOrder
+                return NotFound();
+            }
+
+            var orderItems = _orderItemService.TGetOrderItemsByOrderId(orderId).ToList();
+            var orderDetailViewModel = new OrderViewModels
+            {
+                Orders = order,
+                OrderItems = orderItems
             };
 
-            //var userOrder = _orderService.TGetList();
-            //var orderItems = _orderItemService.TGetList();
-            //var viewModel = new OrderViewModels
-            //{
-            //    OrderItems = orderItems,
+            return View(orderDetailViewModel);
+        }
 
-            //};
-
-            return View(viewModel);
-		}
-
-	}
+    }
 }
